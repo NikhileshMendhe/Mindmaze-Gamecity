@@ -11,7 +11,7 @@ const PuzzleGame = () => {
   const { gameId } = useParams();
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
   const [gameStatus, setGameStatus] = useState<"playing" | "won" | "lost">("playing");
-  const [gameType, setGameType] = useState<"lights-out" | "card-game" | "symbol-decoder" | "chess">("lights-out");
+  const [gameType, setGameType] = useState<"lights-out" | "card-game" | "symbol-decoder" | "chess" | "sudoku" | "towers-of-hanoi" | "slitherlink" | "math-equations">("lights-out");
 
   useEffect(() => {
     // Determine game type from gameId
@@ -21,6 +21,14 @@ const PuzzleGame = () => {
       setGameType('symbol-decoder');
     } else if (gameId?.includes('chess')) {
       setGameType('chess');
+    } else if (gameId?.includes('sudoku')) {
+      setGameType('sudoku');
+    } else if (gameId?.includes('towers-of-hanoi') || gameId?.includes('hanoi')) {
+      setGameType('towers-of-hanoi');
+    } else if (gameId?.includes('slitherlink')) {
+      setGameType('slitherlink');
+    } else if (gameId?.includes('math-equations') || gameId?.includes('math')) {
+      setGameType('math-equations');
     } else {
       setGameType('lights-out');
     }
@@ -51,6 +59,10 @@ const PuzzleGame = () => {
       case 'symbol-decoder': return 'Symbol Decoder';
       case 'chess': return 'Chess';
       case 'lights-out': return 'Lights Out';
+      case 'sudoku': return 'Sudoku';
+      case 'towers-of-hanoi': return 'Towers of Hanoi';
+      case 'slitherlink': return 'Slitherlink';
+      case 'math-equations': return 'Math Equations';
       default: return 'Puzzle Game';
     }
   };
@@ -61,9 +73,21 @@ const PuzzleGame = () => {
       case 'symbol-decoder': return 'Memorize and recreate the pattern!';
       case 'chess': return 'Classic chess - capture the opponent\'s king!';
       case 'lights-out': return 'Toggle the lights to turn them all off!';
+      case 'sudoku': return 'Fill the grid with numbers 1-9!';
+      case 'towers-of-hanoi': return 'Move all disks to the rightmost tower!';
+      case 'slitherlink': return 'Connect dots to form a single loop!';
+      case 'math-equations': return 'Solve the mathematical puzzles!';
       default: return 'Solve the puzzle!';
     }
   };
+
+  const renderPlaceholderGame = (gameName: string) => (
+    <div className="flex flex-col items-center justify-center h-64 bg-slate-700/50 rounded-lg border-2 border-dashed border-purple-500/30">
+      <h3 className="text-xl font-bold text-white mb-2">{gameName}</h3>
+      <p className="text-gray-400 text-center">Game implementation coming soon!</p>
+      <p className="text-gray-500 text-sm mt-2">This is a placeholder for the {gameName.toLowerCase()} game.</p>
+    </div>
+  );
 
   const renderGame = () => {
     switch (gameType) {
@@ -95,6 +119,14 @@ const PuzzleGame = () => {
             gameActive={gameStatus === "playing"}
           />
         );
+      case 'sudoku':
+        return renderPlaceholderGame('Sudoku');
+      case 'towers-of-hanoi':
+        return renderPlaceholderGame('Towers of Hanoi');
+      case 'slitherlink':
+        return renderPlaceholderGame('Slitherlink');
+      case 'math-equations':
+        return renderPlaceholderGame('Math Equations');
       default:
         return null;
     }
@@ -129,6 +161,34 @@ const PuzzleGame = () => {
           '• Adjacent lights will toggle too',
           '• Turn all lights off to win',
           '• Be faster than your opponent!'
+        ];
+      case 'sudoku':
+        return [
+          '• Fill each row, column, and 3×3 box',
+          '• Use numbers 1-9 exactly once',
+          '• No repeating numbers in any section',
+          '• Complete faster than your opponent!'
+        ];
+      case 'towers-of-hanoi':
+        return [
+          '• Move all disks to the rightmost tower',
+          '• Only move one disk at a time',
+          '• Never place a larger disk on smaller one',
+          '• Complete in minimum moves!'
+        ];
+      case 'slitherlink':
+        return [
+          '• Connect dots to form a single loop',
+          '• Numbers show how many sides have lines',
+          '• Loop cannot cross itself',
+          '• Complete the puzzle correctly!'
+        ];
+      case 'math-equations':
+        return [
+          '• Solve each mathematical equation',
+          '• Find the missing numbers',
+          '• Use basic arithmetic operations',
+          '• Complete all equations to win!'
         ];
       default:
         return [];
