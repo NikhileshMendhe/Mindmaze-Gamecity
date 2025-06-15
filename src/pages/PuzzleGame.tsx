@@ -3,17 +3,20 @@ import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Clock, User } from "lucide-react";
 import LightsOutGame from "../components/games/LightsOutGame";
 import CardGame from "../components/games/CardGame";
+import SymbolDecoderGame from "../components/games/SymbolDecoderGame";
 
 const PuzzleGame = () => {
   const { gameId } = useParams();
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
   const [gameStatus, setGameStatus] = useState<"playing" | "won" | "lost">("playing");
-  const [gameType, setGameType] = useState<"lights-out" | "card-game">("lights-out");
+  const [gameType, setGameType] = useState<"lights-out" | "card-game" | "symbol-decoder">("lights-out");
 
   useEffect(() => {
     // Determine game type from gameId
     if (gameId?.includes('card-game') || gameId?.includes('card')) {
       setGameType('card-game');
+    } else if (gameId?.includes('symbol-decoder') || gameId?.includes('symbol')) {
+      setGameType('symbol-decoder');
     } else {
       setGameType('lights-out');
     }
@@ -41,6 +44,7 @@ const PuzzleGame = () => {
   const getGameTitle = () => {
     switch (gameType) {
       case 'card-game': return 'Card Battle';
+      case 'symbol-decoder': return 'Symbol Decoder';
       case 'lights-out': return 'Lights Out';
       default: return 'Puzzle Game';
     }
@@ -49,6 +53,7 @@ const PuzzleGame = () => {
   const getGameDescription = () => {
     switch (gameType) {
       case 'card-game': return 'Play higher value cards to win!';
+      case 'symbol-decoder': return 'Memorize and recreate the pattern!';
       case 'lights-out': return 'Toggle the lights to turn them all off!';
       default: return 'Solve the puzzle!';
     }
@@ -59,6 +64,13 @@ const PuzzleGame = () => {
       case 'card-game':
         return (
           <CardGame 
+            onWin={handleGameWin} 
+            gameActive={gameStatus === "playing"}
+          />
+        );
+      case 'symbol-decoder':
+        return (
+          <SymbolDecoderGame 
             onWin={handleGameWin} 
             gameActive={gameStatus === "playing"}
           />
@@ -83,6 +95,13 @@ const PuzzleGame = () => {
           '• Higher value cards win the round',
           '• Win more rounds than your opponent',
           '• Ace is the highest card (14)'
+        ];
+      case 'symbol-decoder':
+        return [
+          '• Memorize the pattern shown',
+          '• Recreate it by clicking symbols',
+          '• Complete the sequence correctly',
+          '• Be faster than your opponent!'
         ];
       case 'lights-out':
         return [
