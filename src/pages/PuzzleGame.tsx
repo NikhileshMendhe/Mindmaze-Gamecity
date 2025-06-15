@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Clock, User } from "lucide-react";
@@ -13,7 +12,7 @@ const PuzzleGame = () => {
 
   useEffect(() => {
     // Determine game type from gameId
-    if (gameId?.includes('card')) {
+    if (gameId?.includes('card-game') || gameId?.includes('card')) {
       setGameType('card-game');
     } else {
       setGameType('lights-out');
