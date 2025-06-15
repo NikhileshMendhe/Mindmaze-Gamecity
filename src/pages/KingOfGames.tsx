@@ -7,7 +7,15 @@ const KingOfGames = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div 
+      className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative min-h-screen"
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url('/lovable-uploads/afbccd8a-6f72-49a2-b52e-38fc11fbf81b.png')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}
+    >
       {/* Header */}
       <div className="text-center mb-12">
         <h1 className="text-5xl font-bold mb-6 gradient-text text-glow floating-animation">
@@ -19,28 +27,16 @@ const KingOfGames = () => {
       </div>
 
       {/* Main Content */}
-      <div className="grid lg:grid-cols-2 gap-12 items-center">
-        {/* Game Image */}
-        <div className="relative">
-          <div className="futuristic-card rounded-2xl overflow-hidden hover-lift neon-glow">
-            <img 
-              src="/lovable-uploads/afbccd8a-6f72-49a2-b52e-38fc11fbf81b.png" 
-              alt="Battlegrounds Mobile India"
-              className="w-full h-auto object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-          </div>
-        </div>
-
+      <div className="flex justify-center">
         {/* Game Info */}
-        <div className="space-y-8">
+        <div className="max-w-4xl w-full">
           <div className="futuristic-card rounded-2xl p-8">
-            <h2 className="text-3xl font-bold text-cyan-300 mb-6 text-glow">
+            <h2 className="text-3xl font-bold text-cyan-300 mb-6 text-glow text-center">
               Battlegrounds Mobile India
             </h2>
             
             <div className="space-y-6">
-              <p className="text-gray-300 text-lg leading-relaxed">
+              <p className="text-gray-300 text-lg leading-relaxed text-center">
                 The most popular battle royale game that has taken India by storm. Drop into the battleground, 
                 loot weapons, and fight to be the last one standing in this ultimate survival game.
               </p>
