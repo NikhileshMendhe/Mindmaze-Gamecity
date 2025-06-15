@@ -75,34 +75,34 @@ const useFunGames = () => {
         {
           id: 'mock-1',
           name: 'Tic Tac Toe',
-          description: 'Classic Tic Tac Toe game',
+          description: 'Classic Tic Tac Toe game - the timeless strategy game',
           category: 'Strategy',
           url: 'https://playtictactoe.org/',
-          image: '/placeholder.svg'
+          image: '/lovable-uploads/fac5764d-6165-4767-aab2-329a8c95f5b7.png'
         },
         {
           id: 'mock-2',
           name: 'Snake Game',
-          description: 'Classic Snake game',
+          description: 'Classic Snake game - navigate and grow your snake',
           category: 'Arcade',
           url: 'https://playsnake.org/',
-          image: '/placeholder.svg'
+          image: '/lovable-uploads/984847a1-e87d-451f-b422-9e8f3308ee55.png'
         },
         {
           id: 'mock-3',
           name: 'Tetris',
-          description: 'Classic Tetris puzzle game',
+          description: 'Classic Tetris puzzle game - arrange falling blocks',
           category: 'Puzzle',
           url: 'https://tetris.com/play-tetris',
-          image: '/placeholder.svg'
+          image: '/lovable-uploads/caf20ac5-76b6-42ac-8869-5c77314f2673.png'
         },
         {
           id: 'mock-4',
-          name: 'Pac-Man',
-          description: 'Classic Pac-Man arcade game',
+          name: 'Pac-Man Arcade',
+          description: 'Classic Pac-Man arcade game - collect points and avoid ghosts',
           category: 'Arcade',
           url: 'https://www.google.com/logos/2010/pacman10-i.html',
-          image: '/placeholder.svg'
+          image: '/lovable-uploads/37ecfa42-1355-4d5a-b475-dc60e292f5a2.png'
         }
       ];
     },
