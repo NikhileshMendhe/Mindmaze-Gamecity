@@ -1,129 +1,144 @@
 
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Play, Users, Trophy, Clock } from "lucide-react";
+import { Play, Users, Clock, Trophy } from "lucide-react";
+import PuzzlePreview from "../components/PuzzlePreview";
 
 const GameLobby = () => {
-  const [selectedMode, setSelectedMode] = useState<string>("1v1");
-  const [isSearching, setIsSearching] = useState(false);
-
-  const gameModes = [
+  const [selectedMode, setSelectedMode] = useState<"1v1" | "co-op" | "ranked">("1v1");
+  
+  const gameTypes = [
     {
-      id: "1v1",
-      name: "1v1 Duel",
-      icon: Play,
-      description: "Race against another player",
-      color: "from-red-500 to-pink-500"
+      id: "lights-out",
+      title: "Lights Out",
+      description: "Toggle lights to turn them all off",
+      type: "lights-out" as const
     },
     {
-      id: "coop",
-      name: "Co-op Mode",
-      icon: Users,
-      description: "Solve puzzles together",
-      color: "from-blue-500 to-purple-500"
+      id: "path-finder", 
+      title: "Path Finder",
+      description: "Connect start to finish efficiently",
+      type: "path-finder" as const
     },
     {
-      id: "ranked",
-      name: "Ranked Queue",
-      icon: Trophy,
-      description: "Competitive matchmaking",
-      color: "from-yellow-500 to-orange-500"
+      id: "symbol-decoder",
+      title: "Symbol Decoder", 
+      description: "Crack the hidden pattern code",
+      type: "symbol-decoder" as const
+    },
+    {
+      id: "card-game",
+      title: "Card Battle",
+      description: "Play cards strategically to win",
+      type: "card-game" as const
     }
   ];
 
-  const handleStartGame = () => {
-    setIsSearching(true);
-    // Simulate matchmaking delay
-    setTimeout(() => {
-      setIsSearching(false);
-      // In a real app, this would navigate to the actual game
-      console.log(`Starting ${selectedMode} game...`);
-    }, 3000);
+  const generateGameId = (gameType: string) => {
+    return `${gameType}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-4 text-white">Game Lobby</h1>
-        <p className="text-gray-400 text-lg">Choose your game mode and start playing</p>
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Header */}
+      <div className="text-center mb-12">
+        <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          Game Lobby
+        </h1>
+        <p className="text-gray-400 text-lg">Choose your puzzle and challenge other players!</p>
       </div>
 
       {/* Game Mode Selection */}
-      <div className="grid md:grid-cols-3 gap-6 mb-8">
-        {gameModes.map((mode) => {
-          const Icon = mode.icon;
-          return (
-            <div
-              key={mode.id}
-              onClick={() => setSelectedMode(mode.id)}
-              className={`bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border-2 cursor-pointer transition-all duration-200 ${
-                selectedMode === mode.id
-                  ? "border-purple-500 bg-purple-500/10"
-                  : "border-purple-500/20 hover:border-purple-500/40"
+      <div className="mb-8">
+        <h2 className="text-2xl font-semibold mb-4 text-white text-center">Select Game Mode</h2>
+        <div className="flex justify-center space-x-4">
+          {[
+            { mode: "1v1" as const, icon: Users, label: "1v1 Duel", desc: "Race against one opponent" },
+            { mode: "co-op" as const, icon: Clock, label: "Co-op", desc: "Solve together with friends" },
+            { mode: "ranked" as const, icon: Trophy, label: "Ranked", desc: "Climb the competitive ladder" }
+          ].map(({ mode, icon: Icon, label, desc }) => (
+            <button
+              key={mode}
+              onClick={() => setSelectedMode(mode)}
+              className={`p-4 rounded-xl transition-all duration-200 text-center ${
+                selectedMode === mode
+                  ? "bg-purple-500/30 border border-purple-500/50 text-white"
+                  : "bg-slate-800/50 border border-slate-700 text-gray-400 hover:text-white hover:border-slate-600"
               }`}
             >
-              <div className="text-center">
-                <div className={`bg-gradient-to-br ${mode.color} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}>
-                  <Icon size={32} className="text-white" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2 text-white">{mode.name}</h3>
-                <p className="text-gray-400 text-sm">{mode.description}</p>
+              <Icon size={32} className="mx-auto mb-2" />
+              <div className="font-semibold">{label}</div>
+              <div className="text-sm opacity-75">{desc}</div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Game Selection */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-semibold mb-6 text-white text-center">Choose Your Game</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {gameTypes.map((game) => (
+            <Link
+              key={game.id}
+              to={`/game/${generateGameId(game.id)}`}
+              className="block hover:scale-105 transition-transform duration-200"
+            >
+              <PuzzlePreview
+                title={game.title}
+                description={game.description}
+                type={game.type}
+              />
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Quick Play */}
+      <div className="text-center">
+        <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-purple-500/20 max-w-md mx-auto">
+          <h3 className="text-xl font-semibold mb-4 text-white">Quick Match</h3>
+          <p className="text-gray-400 mb-4">Jump into a random game immediately</p>
+          <Link 
+            to={`/game/${generateGameId('quick-match')}`}
+            className="game-button text-white inline-flex items-center space-x-2"
+          >
+            <Play size={20} />
+            <span>Quick Play</span>
+          </Link>
+        </div>
+      </div>
+
+      {/* Active Games */}
+      <div className="mt-12">
+        <h2 className="text-2xl font-semibold mb-6 text-white text-center">Active Games</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {/* Mock active games */}
+          {[
+            { id: "game1", players: ["Player1", "Player2"], type: "Lights Out", spectators: 5 },
+            { id: "game2", players: ["Player3", "Player4"], type: "Card Battle", spectators: 12 },
+            { id: "game3", players: ["Player5", "Player6"], type: "Path Finder", spectators: 3 }
+          ].map((game) => (
+            <div
+              key={game.id}
+              className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 border border-slate-700 hover:border-purple-500/40 transition-all duration-200"
+            >
+              <div className="flex justify-between items-start mb-2">
+                <h4 className="font-semibold text-white">{game.type}</h4>
+                <span className="text-green-400 text-sm">● Live</span>
+              </div>
+              <div className="text-gray-400 text-sm mb-3">
+                {game.players[0]} vs {game.players[1]}
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-gray-500 text-xs">{game.spectators} watching</span>
+                <button className="text-purple-400 hover:text-purple-300 text-sm">
+                  Spectate
+                </button>
               </div>
             </div>
-          );
-        })}
-      </div>
-
-      {/* Play Button */}
-      <div className="text-center mb-8">
-        {!isSearching ? (
-          <button
-            onClick={handleStartGame}
-            className="game-button text-white text-xl px-12 py-4"
-          >
-            <Play className="inline mr-2" size={24} />
-            Find Match
-          </button>
-        ) : (
-          <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-8 border border-purple-500/20 max-w-md mx-auto">
-            <div className="text-center">
-              <div className="animate-spin w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-              <h3 className="text-xl font-semibold mb-2 text-white">Searching for opponent...</h3>
-              <p className="text-gray-400">Finding the perfect match for you</p>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Quick Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 border border-purple-500/20 text-center">
-          <div className="text-2xl font-bold text-purple-400 mb-1">1,234</div>
-          <div className="text-gray-400 text-sm">Players Online</div>
+          ))}
         </div>
-        <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 border border-purple-500/20 text-center">
-          <div className="text-2xl font-bold text-pink-400 mb-1">45</div>
-          <div className="text-gray-400 text-sm">Active Matches</div>
-        </div>
-        <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 border border-purple-500/20 text-center">
-          <div className="text-2xl font-bold text-cyan-400 mb-1">2:30</div>
-          <div className="text-gray-400 text-sm">Avg Match Time</div>
-        </div>
-        <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 border border-purple-500/20 text-center">
-          <div className="text-2xl font-bold text-yellow-400 mb-1">856</div>
-          <div className="text-gray-400 text-sm">Your Rank</div>
-        </div>
-      </div>
-
-      {/* Demo Game Link */}
-      <div className="text-center mt-8">
-        <Link 
-          to="/game/demo"
-          className="inline-block px-6 py-3 rounded-xl font-semibold text-purple-300 border border-purple-500/30 hover:bg-purple-500/10 transition-all duration-200"
-        >
-          <Clock className="inline mr-2" size={18} />
-          Try Demo Game
-        </Link>
       </div>
     </div>
   );

@@ -3,11 +3,22 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Clock, User } from "lucide-react";
 import LightsOutGame from "../components/games/LightsOutGame";
+import CardGame from "../components/games/CardGame";
 
 const PuzzleGame = () => {
   const { gameId } = useParams();
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
   const [gameStatus, setGameStatus] = useState<"playing" | "won" | "lost">("playing");
+  const [gameType, setGameType] = useState<"lights-out" | "card-game">("lights-out");
+
+  useEffect(() => {
+    // Determine game type from gameId
+    if (gameId?.includes('card')) {
+      setGameType('card-game');
+    } else {
+      setGameType('lights-out');
+    }
+  }, [gameId]);
 
   useEffect(() => {
     if (timeLeft > 0 && gameStatus === "playing") {
@@ -26,6 +37,64 @@ const PuzzleGame = () => {
 
   const handleGameWin = () => {
     setGameStatus("won");
+  };
+
+  const getGameTitle = () => {
+    switch (gameType) {
+      case 'card-game': return 'Card Battle';
+      case 'lights-out': return 'Lights Out';
+      default: return 'Puzzle Game';
+    }
+  };
+
+  const getGameDescription = () => {
+    switch (gameType) {
+      case 'card-game': return 'Play higher value cards to win!';
+      case 'lights-out': return 'Toggle the lights to turn them all off!';
+      default: return 'Solve the puzzle!';
+    }
+  };
+
+  const renderGame = () => {
+    switch (gameType) {
+      case 'card-game':
+        return (
+          <CardGame 
+            onWin={handleGameWin} 
+            gameActive={gameStatus === "playing"}
+          />
+        );
+      case 'lights-out':
+        return (
+          <LightsOutGame 
+            onWin={handleGameWin} 
+            gameActive={gameStatus === "playing"}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  const getInstructions = () => {
+    switch (gameType) {
+      case 'card-game':
+        return [
+          '• Click on your cards to play them',
+          '• Higher value cards win the round',
+          '• Win more rounds than your opponent',
+          '• Ace is the highest card (14)'
+        ];
+      case 'lights-out':
+        return [
+          '• Click any light to toggle it',
+          '• Adjacent lights will toggle too',
+          '• Turn all lights off to win',
+          '• Be faster than your opponent!'
+        ];
+      default:
+        return [];
+    }
   };
 
   return (
@@ -67,7 +136,7 @@ const PuzzleGame = () => {
               {gameStatus === "won" ? "Victory!" : "Time's Up!"}
             </h2>
             <p className="text-gray-400 mb-4">
-              {gameStatus === "won" ? "Congratulations on solving the puzzle!" : "Better luck next time!"}
+              {gameStatus === "won" ? "Congratulations on winning the game!" : "Better luck next time!"}
             </p>
             <Link to="/lobby" className="game-button text-white">
               Play Again
@@ -81,13 +150,10 @@ const PuzzleGame = () => {
         {/* Main Game */}
         <div className="lg:col-span-2">
           <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-purple-500/20">
-            <h2 className="text-2xl font-bold mb-4 text-white text-center">Lights Out</h2>
-            <p className="text-gray-400 text-center mb-6">Toggle the lights to turn them all off!</p>
+            <h2 className="text-2xl font-bold mb-4 text-white text-center">{getGameTitle()}</h2>
+            <p className="text-gray-400 text-center mb-6">{getGameDescription()}</p>
             
-            <LightsOutGame 
-              onWin={handleGameWin} 
-              gameActive={gameStatus === "playing"}
-            />
+            {renderGame()}
           </div>
         </div>
 
@@ -117,8 +183,8 @@ const PuzzleGame = () => {
                 <span className="text-white">1v1 Duel</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Difficulty</span>
-                <span className="text-yellow-400">Medium</span>
+                <span className="text-gray-400">Type</span>
+                <span className="text-yellow-400">{getGameTitle()}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-400">Game ID</span>
@@ -131,10 +197,9 @@ const PuzzleGame = () => {
           <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 border border-purple-500/20">
             <h3 className="text-lg font-semibold mb-3 text-white">How to Play</h3>
             <ul className="text-sm text-gray-400 space-y-1">
-              <li>• Click any light to toggle it</li>
-              <li>• Adjacent lights will toggle too</li>
-              <li>• Turn all lights off to win</li>
-              <li>• Be faster than your opponent!</li>
+              {getInstructions().map((instruction, index) => (
+                <li key={index}>{instruction}</li>
+              ))}
             </ul>
           </div>
         </div>

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 interface PuzzlePreviewProps {
   title: string;
   description: string;
-  type: "lights-out" | "path-finder" | "symbol-decoder";
+  type: "lights-out" | "path-finder" | "symbol-decoder" | "card-game";
 }
 
 const PuzzlePreview = ({ title, description, type }: PuzzlePreviewProps) => {
@@ -61,11 +61,32 @@ const PuzzlePreview = ({ title, description, type }: PuzzlePreviewProps) => {
     </div>
   );
 
+  const renderCardGame = () => (
+    <div className="flex justify-center items-center w-32 h-32 mx-auto">
+      <div className="grid grid-cols-2 gap-2">
+        {/* Playing cards preview */}
+        <div className="w-12 h-16 bg-gradient-to-br from-red-600 to-red-800 rounded border border-red-400 flex items-center justify-center">
+          <span className="text-white text-xs font-bold">♥A</span>
+        </div>
+        <div className="w-12 h-16 bg-gradient-to-br from-slate-600 to-slate-800 rounded border border-slate-400 flex items-center justify-center">
+          <span className="text-white text-xs font-bold">♠K</span>
+        </div>
+        <div className="w-12 h-16 bg-gradient-to-br from-red-600 to-red-800 rounded border border-red-400 flex items-center justify-center">
+          <span className="text-white text-xs font-bold">♦Q</span>
+        </div>
+        <div className="w-12 h-16 bg-gradient-to-br from-slate-600 to-slate-800 rounded border border-slate-400 flex items-center justify-center">
+          <span className="text-white text-xs font-bold">♣J</span>
+        </div>
+      </div>
+    </div>
+  );
+
   const renderPuzzle = () => {
     switch (type) {
       case "lights-out": return renderLightsOut();
       case "path-finder": return renderPathFinder();
       case "symbol-decoder": return renderSymbolDecoder();
+      case "card-game": return renderCardGame();
       default: return null;
     }
   };
