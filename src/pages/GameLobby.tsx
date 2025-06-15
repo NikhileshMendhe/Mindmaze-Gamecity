@@ -21,6 +21,7 @@ const GameLobby = () => {
   const [selectedMode, setSelectedMode] = useState<"1v1" | "co-op" | "ranked">("1v1");
   const [selectedGenre, setSelectedGenre] = useState<string>("all");
   const [gameType, setGameType] = useState<"free-games" | "puzzle-games" | "fun-games" | "hard-games" | "best-games" | "level-games" | "paid-games" | "gaming-youtubers">("free-games");
+  
   const { data: games, isLoading, error } = useFreeGames();
   const { data: funGames, isLoading: funGamesLoading, error: funGamesError } = useFunGames();
   const { data: hardGames, isLoading: hardGamesLoading, error: hardGamesError } = useHardGames();
@@ -77,7 +78,7 @@ const GameLobby = () => {
     selectedGenre === "all" || game.genre === selectedGenre
   ).slice(0, 12) || [];
 
-  // Puzzle games data
+  // Puzzle games data - Updated with all games
   const puzzleGames = [
     {
       id: "lights-out-game",
@@ -102,6 +103,30 @@ const GameLobby = () => {
       title: "Chess",
       description: "Classic chess - capture the opponent's king!",
       type: "chess" as const
+    },
+    {
+      id: "sudoku-game",
+      title: "Sudoku",
+      description: "Fill the grid with numbers 1-9!",
+      type: "sudoku" as const
+    },
+    {
+      id: "towers-of-hanoi-game",
+      title: "Towers of Hanoi",
+      description: "Move all disks to the rightmost tower!",
+      type: "towers-of-hanoi" as const
+    },
+    {
+      id: "slitherlink-game",
+      title: "Slitherlink",
+      description: "Connect dots to form a single loop!",
+      type: "slitherlink" as const
+    },
+    {
+      id: "math-equations-game",
+      title: "Math Equations",
+      description: "Solve the mathematical puzzles!",
+      type: "math-equations" as const
     }
   ];
 
@@ -496,7 +521,7 @@ const GameLobby = () => {
             )}
           </>
         ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {puzzleGames.map((puzzle) => (
               <Link key={puzzle.id} to={`/game/${puzzle.id}`}>
                 <PuzzlePreview
