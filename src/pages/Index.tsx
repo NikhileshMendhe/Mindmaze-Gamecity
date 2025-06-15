@@ -1,6 +1,5 @@
-
 import { Link } from "react-router-dom";
-import { Play, Users, Trophy, Zap, Star, Gift, Gamepad2, Puzzle } from "lucide-react";
+import { Play, Users, Trophy, Zap, Star, Gift, Gamepad2, Puzzle, MapPin } from "lucide-react";
 
 const Index = () => {
   return (
@@ -15,9 +14,33 @@ const Index = () => {
                 MindMaze
               </span>
             </h1>
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <MapPin className="text-purple-400" size={24} />
+              <p className="text-2xl md:text-3xl font-semibold text-purple-300">
+                The Ultimate Game City for Gamers
+              </p>
+            </div>
             <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              Enter the ultimate arena of logic and strategy. Challenge players worldwide in real-time puzzle battles.
+              Welcome to the digital metropolis where legendary games, mind-bending puzzles, and epic adventures await. 
+              Your gateway to unlimited gaming experiences.
             </p>
+            
+            {/* Big Play Section */}
+            <div className="mb-12">
+              <Link to="/lobby" className="inline-block">
+                <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 p-1 rounded-3xl hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-purple-500/50">
+                  <div className="bg-gradient-to-r from-purple-500 to-pink-500 px-12 py-6 rounded-3xl text-white font-bold text-2xl md:text-3xl flex items-center gap-4 hover:from-purple-600 hover:to-pink-600 transition-all duration-200">
+                    <Play size={36} className="text-white" />
+                    BIG PLAY
+                    <Play size={36} className="text-white" />
+                  </div>
+                </div>
+              </Link>
+              <p className="text-gray-400 mt-4 text-lg">
+                Jump into the action - All games, One destination
+              </p>
+            </div>
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/lobby" className="game-button text-white text-lg">
                 <Play className="inline mr-2" size={20} />
@@ -32,11 +55,11 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Game Types Section */}
+      {/* Game City Districts Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-white">Game Collection</h2>
-          <p className="text-gray-400 text-lg">Explore our diverse collection of games</p>
+          <h2 className="text-4xl font-bold mb-4 text-white">Explore Game City Districts</h2>
+          <p className="text-gray-400 text-lg">Navigate through different gaming neighborhoods in MindMaze</p>
         </div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
