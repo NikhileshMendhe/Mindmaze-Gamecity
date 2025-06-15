@@ -131,7 +131,7 @@
   }
 
   .game-button {
-    @apply px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-400 relative overflow-hidden;
+    @apply px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 relative overflow-hidden;
     background: linear-gradient(135deg, #001122 0%, #003366 50%, #001122 100%);
     border: 2px solid rgba(0, 255, 255, 0.3);
     box-shadow: 
