@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 
 interface PuzzlePreviewProps {
@@ -116,7 +117,7 @@ const PuzzlePreview = ({ title, description, type }: PuzzlePreviewProps) => {
   };
 
   return (
-    <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-200 group floating-animation">
+    <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-200 group">
       <div className="mb-4">
         {renderPuzzle()}
       </div>
