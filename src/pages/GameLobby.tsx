@@ -1,19 +1,21 @@
-
 import { useState } from "react";
 import { Users, Clock, Trophy, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useFreeGames } from "../hooks/useFreeGames";
 import { useFunGames } from "../hooks/useFunGames";
+import { useHardGames } from "../hooks/useHardGames";
 import GameCard from "../components/GameCard";
 import FunGameCard from "../components/FunGameCard";
+import HardGameCard from "../components/HardGameCard";
 import PuzzlePreview from "../components/PuzzlePreview";
 
 const GameLobby = () => {
   const [selectedMode, setSelectedMode] = useState<"1v1" | "co-op" | "ranked">("1v1");
   const [selectedGenre, setSelectedGenre] = useState<string>("all");
-  const [gameType, setGameType] = useState<"free-games" | "puzzle-games" | "fun-games">("free-games");
+  const [gameType, setGameType] = useState<"free-games" | "puzzle-games" | "fun-games" | "hard-games">("free-games");
   const { data: games, isLoading, error } = useFreeGames();
   const { data: funGames, isLoading: funGamesLoading, error: funGamesError } = useFunGames();
+  const { data: hardGames, isLoading: hardGamesLoading, error: hardGamesError } = useHardGames();
 
   // Get unique genres for filtering
   const genres = games ? [...new Set(games.map(game => game.genre))] : [];
@@ -29,6 +31,14 @@ const GameLobby = () => {
   // Filter fun games by selected category
   const filteredFunGames = funGames?.filter(game => 
     selectedGenre === "all" || game.category === selectedGenre
+  ).slice(0, 12) || [];
+
+  // Get unique types for hard games filtering
+  const hardGameTypes = hardGames ? [...new Set(hardGames.map(game => game.type))] : [];
+  
+  // Filter hard games by selected type
+  const filteredHardGames = hardGames?.filter(game => 
+    selectedGenre === "all" || game.type === selectedGenre
   ).slice(0, 12) || [];
 
   // Puzzle games data
@@ -103,6 +113,16 @@ const GameLobby = () => {
           >
             Fun Games
           </button>
+          <button
+            onClick={() => setGameType("hard-games")}
+            className={`px-6 py-3 rounded-lg transition-all duration-200 ${
+              gameType === "hard-games"
+                ? "bg-red-500 text-white"
+                : "bg-slate-700 text-gray-300 hover:bg-slate-600"
+            }`}
+          >
+            Hard Games
+          </button>
         </div>
       </div>
 
@@ -134,30 +154,33 @@ const GameLobby = () => {
         </div>
       )}
 
-      {/* Genre Filter - for free games and fun games */}
-      {(gameType === "free-games" || gameType === "fun-games") && (
+      {/* Genre Filter - for free games, fun games, and hard games */}
+      {(gameType === "free-games" || gameType === "fun-games" || gameType === "hard-games") && (
         <div className="mb-8">
           <h2 className="text-2xl font-semibold mb-4 text-white text-center">
-            Filter by {gameType === "free-games" ? "Genre" : "Category"}
+            Filter by {gameType === "free-games" ? "Genre" : gameType === "fun-games" ? "Category" : "Type"}
           </h2>
           <div className="flex flex-wrap justify-center gap-2">
             <button
               onClick={() => setSelectedGenre("all")}
               className={`px-4 py-2 rounded-lg transition-all duration-200 ${
                 selectedGenre === "all"
-                  ? gameType === "fun-games" ? "bg-green-500 text-white" : "bg-purple-500 text-white"
+                  ? gameType === "fun-games" ? "bg-green-500 text-white" : 
+                    gameType === "hard-games" ? "bg-red-500 text-white" : "bg-purple-500 text-white"
                   : "bg-slate-700 text-gray-300 hover:bg-slate-600"
               }`}
             >
               All Games
             </button>
-            {(gameType === "free-games" ? genres : funGameCategories).map((category) => (
+            {(gameType === "free-games" ? genres : 
+              gameType === "fun-games" ? funGameCategories : hardGameTypes).map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedGenre(category)}
                 className={`px-4 py-2 rounded-lg transition-all duration-200 ${
                   selectedGenre === category
-                    ? gameType === "fun-games" ? "bg-green-500 text-white" : "bg-purple-500 text-white"
+                    ? gameType === "fun-games" ? "bg-green-500 text-white" : 
+                      gameType === "hard-games" ? "bg-red-500 text-white" : "bg-purple-500 text-white"
                     : "bg-slate-700 text-gray-300 hover:bg-slate-600"
                 }`}
               >
@@ -172,7 +195,8 @@ const GameLobby = () => {
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-6 text-white text-center">
           {gameType === "free-games" ? "Available Games" : 
-           gameType === "puzzle-games" ? "Puzzle Games" : "Fun Games"}
+           gameType === "puzzle-games" ? "Puzzle Games" : 
+           gameType === "fun-games" ? "Fun Games" : "Hard Games"}
         </h2>
         
         {gameType === "free-games" ? (
@@ -230,6 +254,35 @@ const GameLobby = () => {
             {!funGamesLoading && !funGamesError && filteredFunGames.length === 0 && (
               <div className="text-center py-12">
                 <p className="text-gray-400 text-lg">No fun games found for the selected category.</p>
+              </div>
+            )}
+          </>
+        ) : gameType === "hard-games" ? (
+          <>
+            {hardGamesLoading && (
+              <div className="flex justify-center items-center py-12">
+                <Loader2 className="animate-spin text-red-500" size={48} />
+                <span className="ml-3 text-white text-lg">Loading hard games...</span>
+              </div>
+            )}
+
+            {hardGamesError && (
+              <div className="text-center py-12">
+                <p className="text-red-400 text-lg">Failed to load hard games. Please try again later.</p>
+              </div>
+            )}
+
+            {!hardGamesLoading && !hardGamesError && (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {filteredHardGames.map((game) => (
+                  <HardGameCard key={game.id} game={game} />
+                ))}
+              </div>
+            )}
+
+            {!hardGamesLoading && !hardGamesError && filteredHardGames.length === 0 && (
+              <div className="text-center py-12">
+                <p className="text-gray-400 text-lg">No hard games found for the selected type.</p>
               </div>
             )}
           </>
