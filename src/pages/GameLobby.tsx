@@ -7,24 +7,27 @@ import { useHardGames } from "../hooks/useHardGames";
 import { useBestGames } from "../hooks/useBestGames";
 import { useLevelGames } from "../hooks/useLevelGames";
 import { usePaidGames } from "../hooks/usePaidGames";
+import { useGamingYoutubers } from "../hooks/useGamingYoutubers";
 import GameCard from "../components/GameCard";
 import FunGameCard from "../components/FunGameCard";
 import HardGameCard from "../components/HardGameCard";
 import BestGameCard from "../components/BestGameCard";
 import LevelGameCard from "../components/LevelGameCard";
 import PaidGameCard from "../components/PaidGameCard";
+import GamingYoutuberCard from "../components/GamingYoutuberCard";
 import PuzzlePreview from "../components/PuzzlePreview";
 
 const GameLobby = () => {
   const [selectedMode, setSelectedMode] = useState<"1v1" | "co-op" | "ranked">("1v1");
   const [selectedGenre, setSelectedGenre] = useState<string>("all");
-  const [gameType, setGameType] = useState<"free-games" | "puzzle-games" | "fun-games" | "hard-games" | "best-games" | "level-games" | "paid-games">("free-games");
+  const [gameType, setGameType] = useState<"free-games" | "puzzle-games" | "fun-games" | "hard-games" | "best-games" | "level-games" | "paid-games" | "gaming-youtubers">("free-games");
   const { data: games, isLoading, error } = useFreeGames();
   const { data: funGames, isLoading: funGamesLoading, error: funGamesError } = useFunGames();
   const { data: hardGames, isLoading: hardGamesLoading, error: hardGamesError } = useHardGames();
   const { data: bestGames, isLoading: bestGamesLoading, error: bestGamesError } = useBestGames();
   const { data: levelGames, isLoading: levelGamesLoading, error: levelGamesError } = useLevelGames();
   const { data: paidGames, isLoading: paidGamesLoading, error: paidGamesError } = usePaidGames();
+  const { data: youtubers, isLoading: youtubersLoading, error: youtubersError } = useGamingYoutubers();
 
   // Get unique genres for filtering
   const genres = games ? [...new Set(games.map(game => game.genre))] : [];
@@ -186,6 +189,16 @@ const GameLobby = () => {
           >
             Paid Games
           </button>
+          <button
+            onClick={() => setGameType("gaming-youtubers")}
+            className={`px-6 py-3 rounded-lg transition-all duration-200 ${
+              gameType === "gaming-youtubers"
+                ? "bg-red-500 text-white"
+                : "bg-slate-700 text-gray-300 hover:bg-slate-600"
+            }`}
+          >
+            Gaming YouTubers
+          </button>
         </div>
       </div>
 
@@ -217,7 +230,7 @@ const GameLobby = () => {
         </div>
       )}
 
-      {/* Genre Filter - for all game types except puzzle games */}
+      {/* Genre Filter - for all game types except puzzle games and gaming youtubers */}
       {(gameType === "free-games" || gameType === "fun-games" || gameType === "hard-games" || gameType === "best-games" || gameType === "level-games" || gameType === "paid-games") && (
         <div className="mb-8">
           <h2 className="text-2xl font-semibold mb-4 text-white text-center">
@@ -275,7 +288,8 @@ const GameLobby = () => {
            gameType === "fun-games" ? "Fun Games" : 
            gameType === "hard-games" ? "Hard Games" :
            gameType === "level-games" ? "Level Games" : 
-           gameType === "paid-games" ? "Paid Games" : "Best Games"}
+           gameType === "paid-games" ? "Paid Games" : 
+           gameType === "gaming-youtubers" ? "Gaming YouTubers" : "Best Games"}
         </h2>
         
         {gameType === "free-games" ? (
@@ -449,6 +463,35 @@ const GameLobby = () => {
             {!paidGamesLoading && !paidGamesError && filteredPaidGames.length === 0 && (
               <div className="text-center py-12">
                 <p className="text-gray-400 text-lg">No paid games found for the selected genre.</p>
+              </div>
+            )}
+          </>
+        ) : gameType === "gaming-youtubers" ? (
+          <>
+            {youtubersLoading && (
+              <div className="flex justify-center items-center py-12">
+                <Loader2 className="animate-spin text-red-500" size={48} />
+                <span className="ml-3 text-white text-lg">Loading gaming YouTubers...</span>
+              </div>
+            )}
+
+            {youtubersError && (
+              <div className="text-center py-12">
+                <p className="text-red-400 text-lg">Failed to load gaming YouTubers. Please try again later.</p>
+              </div>
+            )}
+
+            {!youtubersLoading && !youtubersError && (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {youtubers?.map((youtuber) => (
+                  <GamingYoutuberCard key={youtuber.id} youtuber={youtuber} />
+                ))}
+              </div>
+            )}
+
+            {!youtubersLoading && !youtubersError && (!youtubers || youtubers.length === 0) && (
+              <div className="text-center py-12">
+                <p className="text-gray-400 text-lg">No gaming YouTubers found.</p>
               </div>
             )}
           </>
