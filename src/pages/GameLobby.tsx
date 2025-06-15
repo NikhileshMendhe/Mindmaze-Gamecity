@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Users, Clock, Trophy, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -6,20 +5,23 @@ import { useFreeGames } from "../hooks/useFreeGames";
 import { useFunGames } from "../hooks/useFunGames";
 import { useHardGames } from "../hooks/useHardGames";
 import { useBestGames } from "../hooks/useBestGames";
+import { useLevelGames } from "../hooks/useLevelGames";
 import GameCard from "../components/GameCard";
 import FunGameCard from "../components/FunGameCard";
 import HardGameCard from "../components/HardGameCard";
 import BestGameCard from "../components/BestGameCard";
+import LevelGameCard from "../components/LevelGameCard";
 import PuzzlePreview from "../components/PuzzlePreview";
 
 const GameLobby = () => {
   const [selectedMode, setSelectedMode] = useState<"1v1" | "co-op" | "ranked">("1v1");
   const [selectedGenre, setSelectedGenre] = useState<string>("all");
-  const [gameType, setGameType] = useState<"free-games" | "puzzle-games" | "fun-games" | "hard-games" | "best-games">("free-games");
+  const [gameType, setGameType] = useState<"free-games" | "puzzle-games" | "fun-games" | "hard-games" | "best-games" | "level-games">("free-games");
   const { data: games, isLoading, error } = useFreeGames();
   const { data: funGames, isLoading: funGamesLoading, error: funGamesError } = useFunGames();
   const { data: hardGames, isLoading: hardGamesLoading, error: hardGamesError } = useHardGames();
   const { data: bestGames, isLoading: bestGamesLoading, error: bestGamesError } = useBestGames();
+  const { data: levelGames, isLoading: levelGamesLoading, error: levelGamesError } = useLevelGames();
 
   // Get unique genres for filtering
   const genres = games ? [...new Set(games.map(game => game.genre))] : [];
@@ -51,6 +53,14 @@ const GameLobby = () => {
   // Filter best games by selected category
   const filteredBestGames = bestGames?.filter(game => 
     selectedGenre === "all" || game.category === selectedGenre
+  ).slice(0, 12) || [];
+
+  // Get unique types for level games filtering
+  const levelGameTypes = levelGames ? [...new Set(levelGames.map(game => game.type))] : [];
+  
+  // Filter level games by selected type
+  const filteredLevelGames = levelGames?.filter(game => 
+    selectedGenre === "all" || game.type === selectedGenre
   ).slice(0, 12) || [];
 
   // Puzzle games data
@@ -145,6 +155,16 @@ const GameLobby = () => {
           >
             Best Games
           </button>
+          <button
+            onClick={() => setGameType("level-games")}
+            className={`px-6 py-3 rounded-lg transition-all duration-200 ${
+              gameType === "level-games"
+                ? "bg-yellow-500 text-white"
+                : "bg-slate-700 text-gray-300 hover:bg-slate-600"
+            }`}
+          >
+            Level Games
+          </button>
         </div>
       </div>
 
@@ -176,13 +196,14 @@ const GameLobby = () => {
         </div>
       )}
 
-      {/* Genre Filter - for free games, fun games, hard games, and best games */}
-      {(gameType === "free-games" || gameType === "fun-games" || gameType === "hard-games" || gameType === "best-games") && (
+      {/* Genre Filter - for all game types except puzzle games */}
+      {(gameType === "free-games" || gameType === "fun-games" || gameType === "hard-games" || gameType === "best-games" || gameType === "level-games") && (
         <div className="mb-8">
           <h2 className="text-2xl font-semibold mb-4 text-white text-center">
             Filter by {gameType === "free-games" ? "Genre" : 
                       gameType === "fun-games" ? "Category" : 
-                      gameType === "hard-games" ? "Type" : "Category"}
+                      gameType === "hard-games" ? "Type" :
+                      gameType === "level-games" ? "Type" : "Category"}
           </h2>
           <div className="flex flex-wrap justify-center gap-2">
             <button
@@ -191,7 +212,8 @@ const GameLobby = () => {
                 selectedGenre === "all"
                   ? gameType === "fun-games" ? "bg-green-500 text-white" : 
                     gameType === "hard-games" ? "bg-red-500 text-white" :
-                    gameType === "best-games" ? "bg-blue-500 text-white" : "bg-purple-500 text-white"
+                    gameType === "best-games" ? "bg-blue-500 text-white" :
+                    gameType === "level-games" ? "bg-yellow-500 text-white" : "bg-purple-500 text-white"
                   : "bg-slate-700 text-gray-300 hover:bg-slate-600"
               }`}
             >
@@ -199,7 +221,8 @@ const GameLobby = () => {
             </button>
             {(gameType === "free-games" ? genres : 
               gameType === "fun-games" ? funGameCategories : 
-              gameType === "hard-games" ? hardGameTypes : bestGameCategories).map((category) => (
+              gameType === "hard-games" ? hardGameTypes :
+              gameType === "level-games" ? levelGameTypes : bestGameCategories).map((category) => (
               <button
                 key={category}
                 onClick={() => setSelectedGenre(category)}
@@ -207,7 +230,8 @@ const GameLobby = () => {
                   selectedGenre === category
                     ? gameType === "fun-games" ? "bg-green-500 text-white" : 
                       gameType === "hard-games" ? "bg-red-500 text-white" :
-                      gameType === "best-games" ? "bg-blue-500 text-white" : "bg-purple-500 text-white"
+                      gameType === "best-games" ? "bg-blue-500 text-white" :
+                      gameType === "level-games" ? "bg-yellow-500 text-white" : "bg-purple-500 text-white"
                     : "bg-slate-700 text-gray-300 hover:bg-slate-600"
                 }`}
               >
@@ -224,7 +248,8 @@ const GameLobby = () => {
           {gameType === "free-games" ? "Legendary Games" : 
            gameType === "puzzle-games" ? "Puzzle Games" : 
            gameType === "fun-games" ? "Fun Games" : 
-           gameType === "hard-games" ? "Hard Games" : "Best Games"}
+           gameType === "hard-games" ? "Hard Games" :
+           gameType === "level-games" ? "Level Games" : "Best Games"}
         </h2>
         
         {gameType === "free-games" ? (
@@ -340,6 +365,35 @@ const GameLobby = () => {
             {!bestGamesLoading && !bestGamesError && filteredBestGames.length === 0 && (
               <div className="text-center py-12">
                 <p className="text-gray-400 text-lg">No best games found for the selected category.</p>
+              </div>
+            )}
+          </>
+        ) : gameType === "level-games" ? (
+          <>
+            {levelGamesLoading && (
+              <div className="flex justify-center items-center py-12">
+                <Loader2 className="animate-spin text-yellow-500" size={48} />
+                <span className="ml-3 text-white text-lg">Loading level games...</span>
+              </div>
+            )}
+
+            {levelGamesError && (
+              <div className="text-center py-12">
+                <p className="text-red-400 text-lg">Failed to load level games. Please try again later.</p>
+              </div>
+            )}
+
+            {!levelGamesLoading && !levelGamesError && (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {filteredLevelGames.map((game) => (
+                  <LevelGameCard key={game.id} game={game} />
+                ))}
+              </div>
+            )}
+
+            {!levelGamesLoading && !levelGamesError && filteredLevelGames.length === 0 && (
+              <div className="text-center py-12">
+                <p className="text-gray-400 text-lg">No level games found for the selected type.</p>
               </div>
             )}
           </>
