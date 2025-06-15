@@ -69,8 +69,8 @@ const useFunGames = () => {
         }
       }
       
-      // If all endpoints fail, return some mock data so the UI works
-      console.log('All API endpoints failed, returning mock data');
+      // If all endpoints fail, return mock data with your uploaded images
+      console.log('All API endpoints failed, returning mock data with custom images');
       return [
         {
           id: 'mock-1',
