@@ -39,6 +39,12 @@ const GameLobby = () => {
       title: "Symbol Decoder",
       description: "Memorize and recreate the pattern!",
       type: "symbol-decoder" as const
+    },
+    {
+      id: "chess-game",
+      title: "Chess",
+      description: "Classic chess - capture the opponent's king!",
+      type: "chess" as const
     }
   ];
 

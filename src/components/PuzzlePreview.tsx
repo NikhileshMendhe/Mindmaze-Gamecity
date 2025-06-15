@@ -1,10 +1,9 @@
-
 import { useState, useEffect } from "react";
 
 interface PuzzlePreviewProps {
   title: string;
   description: string;
-  type: "lights-out" | "path-finder" | "symbol-decoder" | "card-game";
+  type: "lights-out" | "path-finder" | "symbol-decoder" | "card-game" | "chess";
 }
 
 const PuzzlePreview = ({ title, description, type }: PuzzlePreviewProps) => {
@@ -81,12 +80,37 @@ const PuzzlePreview = ({ title, description, type }: PuzzlePreviewProps) => {
     </div>
   );
 
+  const renderChess = () => (
+    <div className="flex justify-center items-center w-32 h-32 mx-auto">
+      <div className="grid grid-cols-4 gap-1">
+        {/* Mini chess board preview */}
+        <div className="w-6 h-6 bg-amber-100 flex items-center justify-center text-xs">♜</div>
+        <div className="w-6 h-6 bg-amber-800 flex items-center justify-center text-xs">♞</div>
+        <div className="w-6 h-6 bg-amber-100 flex items-center justify-center text-xs">♝</div>
+        <div className="w-6 h-6 bg-amber-800 flex items-center justify-center text-xs">♛</div>
+        <div className="w-6 h-6 bg-amber-800 flex items-center justify-center text-xs">♟</div>
+        <div className="w-6 h-6 bg-amber-100 flex items-center justify-center text-xs">♟</div>
+        <div className="w-6 h-6 bg-amber-800 flex items-center justify-center text-xs">♟</div>
+        <div className="w-6 h-6 bg-amber-100 flex items-center justify-center text-xs">♟</div>
+        <div className="w-6 h-6 bg-amber-100"></div>
+        <div className="w-6 h-6 bg-amber-800"></div>
+        <div className="w-6 h-6 bg-amber-100"></div>
+        <div className="w-6 h-6 bg-amber-800"></div>
+        <div className="w-6 h-6 bg-amber-800 flex items-center justify-center text-xs">♙</div>
+        <div className="w-6 h-6 bg-amber-100 flex items-center justify-center text-xs">♙</div>
+        <div className="w-6 h-6 bg-amber-800 flex items-center justify-center text-xs">♙</div>
+        <div className="w-6 h-6 bg-amber-100 flex items-center justify-center text-xs">♙</div>
+      </div>
+    </div>
+  );
+
   const renderPuzzle = () => {
     switch (type) {
       case "lights-out": return renderLightsOut();
       case "path-finder": return renderPathFinder();
       case "symbol-decoder": return renderSymbolDecoder();
       case "card-game": return renderCardGame();
+      case "chess": return renderChess();
       default: return null;
     }
   };

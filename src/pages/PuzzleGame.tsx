@@ -1,15 +1,17 @@
+
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, Clock, User } from "lucide-react";
 import LightsOutGame from "../components/games/LightsOutGame";
 import CardGame from "../components/games/CardGame";
 import SymbolDecoderGame from "../components/games/SymbolDecoderGame";
+import ChessGame from "../components/games/ChessGame";
 
 const PuzzleGame = () => {
   const { gameId } = useParams();
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
   const [gameStatus, setGameStatus] = useState<"playing" | "won" | "lost">("playing");
-  const [gameType, setGameType] = useState<"lights-out" | "card-game" | "symbol-decoder">("lights-out");
+  const [gameType, setGameType] = useState<"lights-out" | "card-game" | "symbol-decoder" | "chess">("lights-out");
 
   useEffect(() => {
     // Determine game type from gameId
@@ -17,6 +19,8 @@ const PuzzleGame = () => {
       setGameType('card-game');
     } else if (gameId?.includes('symbol-decoder') || gameId?.includes('symbol')) {
       setGameType('symbol-decoder');
+    } else if (gameId?.includes('chess')) {
+      setGameType('chess');
     } else {
       setGameType('lights-out');
     }
@@ -45,6 +49,7 @@ const PuzzleGame = () => {
     switch (gameType) {
       case 'card-game': return 'Card Battle';
       case 'symbol-decoder': return 'Symbol Decoder';
+      case 'chess': return 'Chess';
       case 'lights-out': return 'Lights Out';
       default: return 'Puzzle Game';
     }
@@ -54,6 +59,7 @@ const PuzzleGame = () => {
     switch (gameType) {
       case 'card-game': return 'Play higher value cards to win!';
       case 'symbol-decoder': return 'Memorize and recreate the pattern!';
+      case 'chess': return 'Classic chess - capture the opponent\'s king!';
       case 'lights-out': return 'Toggle the lights to turn them all off!';
       default: return 'Solve the puzzle!';
     }
@@ -71,6 +77,13 @@ const PuzzleGame = () => {
       case 'symbol-decoder':
         return (
           <SymbolDecoderGame 
+            onWin={handleGameWin} 
+            gameActive={gameStatus === "playing"}
+          />
+        );
+      case 'chess':
+        return (
+          <ChessGame 
             onWin={handleGameWin} 
             gameActive={gameStatus === "playing"}
           />
@@ -102,6 +115,13 @@ const PuzzleGame = () => {
           '• Recreate it by clicking symbols',
           '• Complete the sequence correctly',
           '• Be faster than your opponent!'
+        ];
+      case 'chess':
+        return [
+          '• Click a piece to select it',
+          '• Click a valid square to move',
+          '• Capture the opponent\'s king to win',
+          '• Standard chess movement rules apply'
         ];
       case 'lights-out':
         return [
