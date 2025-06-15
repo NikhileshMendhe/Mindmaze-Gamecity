@@ -14,31 +14,31 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="glass-card border-b border-white/10 sticky top-0 z-50">
+    <nav className="futuristic-card border-b border-cyan-400/20 sticky top-0 z-50 cyber-grid">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-18">
           <div className="flex items-center">
             <Link 
               to="/" 
-              className="text-3xl font-bold gradient-text hover:scale-105 transition-transform duration-300 text-glow"
+              className="text-4xl font-bold gradient-text hover:scale-110 transition-transform duration-500 text-glow text-cyber floating-animation"
             >
               MindMaze
             </Link>
           </div>
           
-          <div className="flex space-x-2">
+          <div className="flex space-x-3">
             {navItems.map(({ path, icon: Icon, label }) => (
               <Link
                 key={path}
                 to={path}
-                className={`flex items-center space-x-2 px-6 py-3 rounded-xl transition-all duration-300 hover-lift ${
+                className={`flex items-center space-x-3 px-6 py-4 rounded-xl transition-all duration-400 hover-lift text-cyber ${
                   location.pathname === path
-                    ? "glass-card border border-purple-400/30 text-purple-300 neon-glow"
-                    : "text-gray-300 hover:text-white hover:glass-card hover:border hover:border-white/20"
+                    ? "futuristic-card border border-cyan-400/50 text-cyan-300 neon-glow pulse-glow"
+                    : "text-gray-300 hover:text-cyan-300 hover:futuristic-card hover:border hover:border-cyan-400/30 hover:neon-glow"
                 }`}
               >
-                <Icon size={18} />
-                <span className="hidden sm:block font-medium">{label}</span>
+                <Icon size={20} className="text-glow" />
+                <span className="hidden sm:block font-bold text-sm tracking-wider">{label}</span>
               </Link>
             ))}
           </div>
