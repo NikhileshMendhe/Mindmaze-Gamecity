@@ -1,7 +1,6 @@
 
 import { Link } from "react-router-dom";
 import { Play, Users, Trophy, Zap, Star, Gift, Gamepad2, Puzzle } from "lucide-react";
-import PuzzlePreview from "../components/PuzzlePreview";
 
 const Index = () => {
   return (
@@ -130,28 +129,182 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Puzzle Preview */}
-        <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold mb-4 text-white">Featured Puzzle Types</h2>
-          <p className="text-gray-400 text-lg">Master different types of logic challenges</p>
+        {/* Detailed Game Information */}
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4 text-white">Available Games</h2>
+          <p className="text-gray-400 text-lg">Complete overview of all game categories</p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <PuzzlePreview 
-            title="Lights Out"
-            description="Toggle lights to turn them all off"
-            type="lights-out"
-          />
-          <PuzzlePreview 
-            title="Path Finder"
-            description="Connect start to finish efficiently"
-            type="path-finder"
-          />
-          <PuzzlePreview 
-            title="Symbol Decoder"
-            description="Crack the hidden pattern"
-            type="symbol-decoder"
-          />
+        <div className="space-y-12">
+          {/* Legendary Games Section */}
+          <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl p-8 border border-purple-500/20">
+            <div className="flex items-center mb-6">
+              <div className="bg-gradient-to-br from-purple-500 to-pink-500 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                <Star size={24} className="text-white" />
+              </div>
+              <h3 className="text-3xl font-bold text-white">Legendary Games</h3>
+            </div>
+            <p className="text-gray-300 mb-4 text-lg">
+              Access to the most popular free-to-play games that have defined gaming culture. From battle royales to MOBAs, 
+              these games offer competitive multiplayer experiences with millions of active players worldwide.
+            </p>
+            <div className="grid md:grid-cols-2 gap-4 text-gray-400">
+              <div>
+                <h4 className="font-semibold text-white mb-2">Featured Titles Include:</h4>
+                <ul className="space-y-1">
+                  <li>• Battle Royale Games (Fortnite, Apex Legends)</li>
+                  <li>• MOBA Games (League of Legends, Dota 2)</li>
+                  <li>• FPS Games (Counter-Strike 2, Valorant)</li>
+                  <li>• MMORPGs (World of Warcraft, Final Fantasy XIV)</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-white mb-2">Game Features:</h4>
+                <ul className="space-y-1">
+                  <li>• Competitive multiplayer gameplay</li>
+                  <li>• Regular content updates</li>
+                  <li>• Esports tournaments</li>
+                  <li>• Cross-platform compatibility</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Puzzle Games Section */}
+          <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl p-8 border border-blue-500/20">
+            <div className="flex items-center mb-6">
+              <div className="bg-gradient-to-br from-blue-500 to-purple-500 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                <Puzzle size={24} className="text-white" />
+              </div>
+              <h3 className="text-3xl font-bold text-white">Puzzle Games</h3>
+            </div>
+            <p className="text-gray-300 mb-4 text-lg">
+              Test your cognitive abilities with our collection of brain-challenging puzzles. From classic games like Chess 
+              to innovative logic puzzles, these games are designed to improve problem-solving skills and strategic thinking.
+            </p>
+            <div className="grid md:grid-cols-2 gap-4 text-gray-400">
+              <div>
+                <h4 className="font-semibold text-white mb-2">Available Puzzles:</h4>
+                <ul className="space-y-1">
+                  <li>• Lights Out - Toggle pattern puzzles</li>
+                  <li>• Chess - Classic strategy board game</li>
+                  <li>• Card Battle - Strategic card gameplay</li>
+                  <li>• Symbol Decoder - Memory pattern games</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-white mb-2">Game Modes:</h4>
+                <ul className="space-y-1">
+                  <li>• 1v1 Competitive matches</li>
+                  <li>• Co-op collaborative solving</li>
+                  <li>• Ranked progression system</li>
+                  <li>• Practice mode available</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Fun Games Section */}
+          <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl p-8 border border-green-500/20">
+            <div className="flex items-center mb-6">
+              <div className="bg-gradient-to-br from-green-500 to-emerald-500 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                <Gamepad2 size={24} className="text-white" />
+              </div>
+              <h3 className="text-3xl font-bold text-white">Fun Games</h3>
+            </div>
+            <p className="text-gray-300 mb-4 text-lg">
+              Enjoy classic arcade and casual games that bring nostalgic entertainment. Perfect for quick gaming sessions 
+              and relaxation, these timeless games offer simple yet engaging gameplay mechanics.
+            </p>
+            <div className="grid md:grid-cols-2 gap-4 text-gray-400">
+              <div>
+                <h4 className="font-semibold text-white mb-2">Classic Games:</h4>
+                <ul className="space-y-1">
+                  <li>• Snake - Navigate and grow your snake</li>
+                  <li>• Tetris - Block-stacking puzzle game</li>
+                  <li>• Pac-Man - Maze navigation adventure</li>
+                  <li>• Tic Tac Toe - Simple strategy game</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-white mb-2">Categories:</h4>
+                <ul className="space-y-1">
+                  <li>• Arcade classics</li>
+                  <li>• Puzzle games</li>
+                  <li>• Strategy games</li>
+                  <li>• Action games</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Hard Games Section */}
+          <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl p-8 border border-red-500/20">
+            <div className="flex items-center mb-6">
+              <div className="bg-gradient-to-br from-red-500 to-orange-500 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                <Gift size={24} className="text-white" />
+              </div>
+              <h3 className="text-3xl font-bold text-white">Hard Games</h3>
+            </div>
+            <p className="text-gray-300 mb-4 text-lg">
+              Discover premium gaming experiences through our giveaway collection. Access high-quality games and exclusive 
+              content that would normally require purchase, all available through limited-time promotional offers.
+            </p>
+            <div className="grid md:grid-cols-2 gap-4 text-gray-400">
+              <div>
+                <h4 className="font-semibold text-white mb-2">Featured Giveaways:</h4>
+                <ul className="space-y-1">
+                  <li>• AAA Game titles (Cyberpunk 2077, Elden Ring)</li>
+                  <li>• Indie game collections</li>
+                  <li>• DLC and expansion packs</li>
+                  <li>• Gaming software and tools</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-white mb-2">Giveaway Types:</h4>
+                <ul className="space-y-1">
+                  <li>• Limited-time offers</li>
+                  <li>• Beta access keys</li>
+                  <li>• Full game licenses</li>
+                  <li>• Premium content unlocks</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Best Games Section */}
+          <div className="bg-slate-800/30 backdrop-blur-sm rounded-xl p-8 border border-blue-500/20">
+            <div className="flex items-center mb-6">
+              <div className="bg-gradient-to-br from-blue-500 to-indigo-500 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                <Trophy size={24} className="text-white" />
+              </div>
+              <h3 className="text-3xl font-bold text-white">Best Games</h3>
+            </div>
+            <p className="text-gray-300 mb-4 text-lg">
+              Explore our curated collection of top-rated character classes and RPG elements. Each entry features detailed 
+              statistics, difficulty ratings, and strategic gameplay mechanics for serious RPG enthusiasts.
+            </p>
+            <div className="grid md:grid-cols-2 gap-4 text-gray-400">
+              <div>
+                <h4 className="font-semibold text-white mb-2">Character Classes:</h4>
+                <ul className="space-y-1">
+                  <li>• Warrior classes with combat specialization</li>
+                  <li>• Mage classes with elemental powers</li>
+                  <li>• Rogue classes with stealth abilities</li>
+                  <li>• Support classes with healing skills</li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold text-white mb-2">RPG Features:</h4>
+                <ul className="space-y-1">
+                  <li>• Detailed stat progression</li>
+                  <li>• Difficulty scaling system</li>
+                  <li>• Player rating system</li>
+                  <li>• Strategic gameplay elements</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
