@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import GameLobby from "./pages/GameLobby";
 import PuzzleGame from "./pages/PuzzleGame";
 import Leaderboard from "./pages/Leaderboard";
+import GodOfGames from "./pages/GodOfGames";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/lobby" element={<GameLobby />} />
             <Route path="/game/:gameId" element={<PuzzleGame />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="/god-of-games" element={<GodOfGames />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

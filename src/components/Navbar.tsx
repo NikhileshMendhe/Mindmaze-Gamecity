@@ -1,6 +1,6 @@
 
 import { Link, useLocation } from "react-router-dom";
-import { Home, Users, Trophy, User } from "lucide-react";
+import { Home, Users, Trophy, User, Crown } from "lucide-react";
 
 const Navbar = () => {
   const location = useLocation();
@@ -9,6 +9,7 @@ const Navbar = () => {
     { path: "/", icon: Home, label: "Home" },
     { path: "/lobby", icon: Users, label: "Play" },
     { path: "/leaderboard", icon: Trophy, label: "Leaderboard" },
+    { path: "/god-of-games", icon: Crown, label: "God of Games" },
     { path: "/profile", icon: User, label: "Profile" },
   ];
 
