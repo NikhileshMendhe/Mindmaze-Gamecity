@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Users, Clock, Trophy, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -102,7 +103,7 @@ const GameLobby = () => {
                 : "bg-slate-700 text-gray-300 hover:bg-slate-600"
             }`}
           >
-            Free-to-Play Games
+            Legendary Games
           </button>
           <button
             onClick={() => setGameType("puzzle-games")}
@@ -220,7 +221,7 @@ const GameLobby = () => {
       {/* Games Grid */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-6 text-white text-center">
-          {gameType === "free-games" ? "Available Games" : 
+          {gameType === "free-games" ? "Legendary Games" : 
            gameType === "puzzle-games" ? "Puzzle Games" : 
            gameType === "fun-games" ? "Fun Games" : 
            gameType === "hard-games" ? "Hard Games" : "Best Games"}
