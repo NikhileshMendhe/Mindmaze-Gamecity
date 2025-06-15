@@ -27,7 +27,7 @@ const useGamingYoutubers = () => {
           specialty: 'GTA 5, Free Fire, PUBG',
           country: 'India',
           url: 'https://www.youtube.com/@TotalGaming093',
-          image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop'
+          image: '/lovable-uploads/4a8f6515-d45d-46d9-9db4-f7be2fb9b2ad.png'
         },
         {
           id: 'beast-boy-shub',
@@ -37,7 +37,7 @@ const useGamingYoutubers = () => {
           specialty: 'Horror Games, Minecraft',
           country: 'India',
           url: 'https://www.youtube.com/@BeastBoyShub',
-          image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=300&fit=crop'
+          image: '/lovable-uploads/928c2528-594d-45bb-8177-0e4b077b7ec0.png'
         },
         {
           id: 'techno-gamerz',
@@ -47,7 +47,7 @@ const useGamingYoutubers = () => {
           specialty: 'GTA 5, Action Games',
           country: 'India',
           url: 'https://www.youtube.com/@TechnoGamerzOfficial',
-          image: 'https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=400&h=300&fit=crop'
+          image: '/lovable-uploads/60f18683-11fb-4558-8550-59dfd0830972.png'
         },
         {
           id: 'markiplier',
@@ -57,7 +57,7 @@ const useGamingYoutubers = () => {
           specialty: 'Horror Games, Indie Games',
           country: 'USA',
           url: 'https://www.youtube.com/@markiplier',
-          image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop'
+          image: '/lovable-uploads/6d8f3989-f691-484d-96d5-2643b1b30c04.png'
         },
         {
           id: 'jacksepticeye',
@@ -67,7 +67,7 @@ const useGamingYoutubers = () => {
           specialty: 'Variety Gaming, Indie Games',
           country: 'Ireland',
           url: 'https://www.youtube.com/@jacksepticeye',
-          image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&h=300&fit=crop'
+          image: '/lovable-uploads/273adad0-8e3b-431b-9d9a-b8c732c266f1.png'
         },
         {
           id: 'dantdm',
@@ -77,7 +77,7 @@ const useGamingYoutubers = () => {
           specialty: 'Minecraft, Family Gaming',
           country: 'UK',
           url: 'https://www.youtube.com/@DanTDM',
-          image: 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=400&h=300&fit=crop'
+          image: '/lovable-uploads/6bd28923-e559-43cd-a7e9-b63b891031b4.png'
         },
         {
           id: 'pewdiepie',
@@ -87,7 +87,7 @@ const useGamingYoutubers = () => {
           specialty: 'Variety Content, Gaming',
           country: 'Sweden',
           url: 'https://www.youtube.com/@PewDiePie',
-          image: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1f?w=400&h=300&fit=crop'
+          image: '/lovable-uploads/090db42b-2264-4e73-8da0-3f4775d28a29.png'
         },
         {
           id: 'vanoss-gaming',
@@ -97,7 +97,7 @@ const useGamingYoutubers = () => {
           specialty: 'Multiplayer Games, Montages',
           country: 'Canada',
           url: 'https://www.youtube.com/@VanossGaming',
-          image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop'
+          image: '/lovable-uploads/2fa45e57-35b4-4733-a95b-bb7e16fa8e43.png'
         },
         {
           id: 'fernanfloo',
@@ -107,7 +107,7 @@ const useGamingYoutubers = () => {
           specialty: 'Variety Gaming, Comedy',
           country: 'El Salvador',
           url: 'https://www.youtube.com/results?search_query=+Fernanfloo',
-          image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=300&fit=crop'
+          image: '/lovable-uploads/747ca797-d26d-4469-a17b-91c3194644d0.png'
         },
         {
           id: 'dynamo-gaming',
@@ -117,7 +117,7 @@ const useGamingYoutubers = () => {
           specialty: 'PUBG Mobile, Mobile Gaming',
           country: 'India',
           url: 'https://www.youtube.com/@DynamoGaming',
-          image: 'https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=400&h=300&fit=crop'
+          image: '/lovable-uploads/984b2011-c046-401a-b2d1-0f2b2cbae554.png'
         }
       ];
     },
