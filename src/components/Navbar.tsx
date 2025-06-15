@@ -1,6 +1,6 @@
 
 import { Link, useLocation } from "react-router-dom";
-import { Home, Users, Trophy, User, Crown } from "lucide-react";
+import { Home, Users, Trophy, User, Crown, Youtube } from "lucide-react";
 
 const Navbar = () => {
   const location = useLocation();
@@ -9,6 +9,7 @@ const Navbar = () => {
     { path: "/", icon: Home, label: "Home" },
     { path: "/lobby", icon: Users, label: "Play" },
     { path: "/leaderboard", icon: Trophy, label: "Leaderboard" },
+    { path: "/youtubers", icon: Youtube, label: "YouTubers" },
     { path: "/god-of-games", icon: Crown, label: "God of Games" },
     { path: "/profile", icon: User, label: "Profile" },
   ];
@@ -31,7 +32,7 @@ const Navbar = () => {
               <Link
                 key={path}
                 to={path}
-                className={`flex items-center space-x-3 px-6 py-4 rounded-xl transition-all duration-400 hover-lift text-cyber ${
+                className={`flex items-center space-x-3 px-6 py-4 rounded-xl transition-all duration-300 hover-lift text-cyber ${
                   location.pathname === path
                     ? "futuristic-card border border-cyan-400/50 text-cyan-300 neon-glow pulse-glow"
                     : "text-gray-300 hover:text-cyan-300 hover:futuristic-card hover:border hover:border-cyan-400/30 hover:neon-glow"
