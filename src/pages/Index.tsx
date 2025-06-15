@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { Play, Users, Trophy, Zap } from "lucide-react";
+import { Play, Users, Trophy, Zap, Star, Gift, Gamepad2, Puzzle } from "lucide-react";
 import PuzzlePreview from "../components/PuzzlePreview";
 
 const Index = () => {
@@ -33,8 +33,66 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Features Section */}
+      {/* Game Types Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4 text-white">Game Collection</h2>
+          <p className="text-gray-400 text-lg">Explore our diverse collection of games</p>
+        </div>
+        
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-200 neon-glow">
+            <div className="text-center">
+              <div className="bg-gradient-to-br from-purple-500 to-pink-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Star size={32} className="text-white" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2 text-white">Legendary Games</h3>
+              <p className="text-gray-400">Play epic free-to-play games including Fortnite, League of Legends, Counter-Strike 2, and more legendary titles</p>
+            </div>
+          </div>
+          
+          <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-200 neon-glow">
+            <div className="text-center">
+              <div className="bg-gradient-to-br from-blue-500 to-purple-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Puzzle size={32} className="text-white" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2 text-white">Puzzle Games</h3>
+              <p className="text-gray-400">Challenge your mind with logic puzzles, chess, card games, and brain teasers designed to test your strategic thinking</p>
+            </div>
+          </div>
+          
+          <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-green-500/20 hover:border-green-500/40 transition-all duration-200 neon-glow">
+            <div className="text-center">
+              <div className="bg-gradient-to-br from-green-500 to-emerald-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Gamepad2 size={32} className="text-white" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2 text-white">Fun Games</h3>
+              <p className="text-gray-400">Enjoy casual gaming with classics like Tic Tac Toe, Snake, Tetris, and Pac-Man for quick entertainment</p>
+            </div>
+          </div>
+          
+          <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-red-500/20 hover:border-red-500/40 transition-all duration-200 neon-glow">
+            <div className="text-center">
+              <div className="bg-gradient-to-br from-red-500 to-orange-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Gift size={32} className="text-white" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2 text-white">Hard Games</h3>
+              <p className="text-gray-400">Discover premium game giveaways featuring titles like Cyberpunk 2077, Elden Ring, and other challenging experiences</p>
+            </div>
+          </div>
+          
+          <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-blue-500/20 hover:border-blue-500/40 transition-all duration-200 neon-glow">
+            <div className="text-center">
+              <div className="bg-gradient-to-br from-blue-500 to-indigo-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Trophy size={32} className="text-white" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2 text-white">Best Games</h3>
+              <p className="text-gray-400">Explore top-rated character classes and RPG elements with detailed stats, ratings, and strategic gameplay features</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Game Modes Section */}
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4 text-white">Game Modes</h2>
           <p className="text-gray-400 text-lg">Choose your battleground</p>
@@ -74,7 +132,7 @@ const Index = () => {
 
         {/* Puzzle Preview */}
         <div className="text-center mb-8">
-          <h2 className="text-4xl font-bold mb-4 text-white">Puzzle Types</h2>
+          <h2 className="text-4xl font-bold mb-4 text-white">Featured Puzzle Types</h2>
           <p className="text-gray-400 text-lg">Master different types of logic challenges</p>
         </div>
         
