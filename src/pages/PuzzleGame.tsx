@@ -6,6 +6,10 @@ import LightsOutGame from "../components/games/LightsOutGame";
 import CardGame from "../components/games/CardGame";
 import SymbolDecoderGame from "../components/games/SymbolDecoderGame";
 import ChessGame from "../components/games/ChessGame";
+import SudokuGame from "../components/games/SudokuGame";
+import TowersOfHanoiGame from "../components/games/TowersOfHanoiGame";
+import SlitherlinkGame from "../components/games/SlitherlinkGame";
+import MathEquationsGame from "../components/games/MathEquationsGame";
 
 const PuzzleGame = () => {
   const { gameId } = useParams();
@@ -120,13 +124,33 @@ const PuzzleGame = () => {
           />
         );
       case 'sudoku':
-        return renderPlaceholderGame('Sudoku');
+        return (
+          <SudokuGame 
+            onWin={handleGameWin} 
+            gameActive={gameStatus === "playing"}
+          />
+        );
       case 'towers-of-hanoi':
-        return renderPlaceholderGame('Towers of Hanoi');
+        return (
+          <TowersOfHanoiGame 
+            onWin={handleGameWin} 
+            gameActive={gameStatus === "playing"}
+          />
+        );
       case 'slitherlink':
-        return renderPlaceholderGame('Slitherlink');
+        return (
+          <SlitherlinkGame 
+            onWin={handleGameWin} 
+            gameActive={gameStatus === "playing"}
+          />
+        );
       case 'math-equations':
-        return renderPlaceholderGame('Math Equations');
+        return (
+          <MathEquationsGame 
+            onWin={handleGameWin} 
+            gameActive={gameStatus === "playing"}
+          />
+        );
       default:
         return null;
     }
