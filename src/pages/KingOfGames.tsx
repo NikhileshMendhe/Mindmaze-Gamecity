@@ -12,7 +12,7 @@ const KingOfGames = () => {
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-gray-800">
-            King of Games
+            Gamecity
           </h1>
           <p className="text-gray-600 text-base sm:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed px-2">
             Experience the ultimate battleground where legends are born. Join millions of players in the most intense mobile gaming experience.
@@ -105,7 +105,7 @@ const KingOfGames = () => {
         {/* Additional Info Section */}
         <div className="mt-8 sm:mt-16">
           <div className="bg-white border border-gray-200 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 text-center shadow-lg">
-            <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4">Ready to Become the King?</h3>
+            <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4">Ready to Enter Gamecity?</h3>
             <p className="text-gray-700 text-base sm:text-lg mb-4 sm:mb-6 px-2">
               Join the battle royale that has captivated millions of players across India. 
               Every match is a new opportunity to prove your skills and claim victory.
