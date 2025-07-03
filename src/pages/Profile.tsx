@@ -34,7 +34,7 @@ const Profile = () => {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-6xl mx-auto px-2 sm:px-4 lg:px-8 py-4 sm:py-8">
       {/* Profile Header */}
       <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-purple-500/20 mb-8">
         <div className="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6">
@@ -64,7 +64,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
         {/* Stats Panel */}
         <div className="lg:col-span-2 space-y-8">
           {/* Game Stats */}
@@ -74,7 +74,7 @@ const Profile = () => {
               Game Statistics
             </h2>
             
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
               <div className="text-center p-4 bg-slate-700/30 rounded-lg">
                 <div className="text-2xl font-bold text-purple-400 mb-1">{playerStats.gamesPlayed}</div>
                 <div className="text-gray-400 text-sm">Games Played</div>
@@ -96,7 +96,7 @@ const Profile = () => {
               </div>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-4 mt-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-4 mt-6">
               <div className="text-center p-4 bg-slate-700/30 rounded-lg">
                 <div className="text-xl font-bold text-cyan-400 mb-1">{playerStats.bestStreak}</div>
                 <div className="text-gray-400 text-sm">Best Win Streak</div>

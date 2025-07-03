@@ -131,7 +131,7 @@ const GameLobby = () => {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-6xl mx-auto px-2 sm:px-4 lg:px-8 py-4 sm:py-8">
       {/* Header */}
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
@@ -143,10 +143,10 @@ const GameLobby = () => {
       {/* Game Type Selection */}
       <div className="mb-8">
         <h2 className="text-2xl font-semibold mb-4 text-white text-center">Game Type</h2>
-        <div className="flex justify-center space-x-4 flex-wrap gap-2">
+        <div className="flex justify-center flex-wrap gap-2 sm:gap-4">
           <button
             onClick={() => setGameType("free-games")}
-            className={`px-6 py-3 rounded-lg transition-all duration-200 ${
+            className={`px-3 sm:px-6 py-2 sm:py-3 rounded-lg transition-all duration-200 text-sm sm:text-base ${
               gameType === "free-games"
                 ? "bg-purple-500 text-white"
                 : "bg-slate-700 text-gray-300 hover:bg-slate-600"
@@ -231,7 +231,7 @@ const GameLobby = () => {
       {gameType === "puzzle-games" && (
         <div className="mb-8">
           <h2 className="text-2xl font-semibold mb-4 text-white text-center">Select Game Mode</h2>
-          <div className="flex justify-center space-x-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
             {[
               { mode: "1v1" as const, icon: Users, label: "1v1 Duel", desc: "Race against one opponent" },
               { mode: "co-op" as const, icon: Clock, label: "Co-op", desc: "Solve together with friends" },
@@ -240,15 +240,15 @@ const GameLobby = () => {
               <button
                 key={mode}
                 onClick={() => setSelectedMode(mode)}
-                className={`p-4 rounded-xl transition-all duration-200 text-center ${
+                className={`p-3 sm:p-4 rounded-xl transition-all duration-200 text-center flex-1 sm:max-w-xs ${
                   selectedMode === mode
                     ? "bg-purple-500/30 border border-purple-500/50 text-white"
                     : "bg-slate-800/50 border border-slate-700 text-gray-400 hover:text-white hover:border-slate-600"
                 }`}
               >
-                <Icon size={32} className="mx-auto mb-2" />
-                <div className="font-semibold">{label}</div>
-                <div className="text-sm opacity-75">{desc}</div>
+                <Icon size={24} className="mx-auto mb-2" />
+                <div className="font-semibold text-sm sm:text-base">{label}</div>
+                <div className="text-xs sm:text-sm opacity-75">{desc}</div>
               </button>
             ))}
           </div>
@@ -288,7 +288,7 @@ const GameLobby = () => {
               <button
                 key={category}
                 onClick={() => setSelectedGenre(category)}
-                className={`px-4 py-2 rounded-lg transition-all duration-200 ${
+                className={`px-2 sm:px-4 py-1 sm:py-2 rounded-lg transition-all duration-200 text-xs sm:text-sm ${
                   selectedGenre === category
                     ? gameType === "fun-games" ? "bg-green-500 text-white" : 
                       gameType === "hard-games" ? "bg-red-500 text-white" :
@@ -333,7 +333,7 @@ const GameLobby = () => {
             )}
 
             {!isLoading && !error && (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                 {filteredGames.map((game) => (
                   <GameCard key={game.id} game={game} />
                 ))}

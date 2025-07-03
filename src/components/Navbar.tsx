@@ -17,18 +17,19 @@ const Navbar = () => {
 
   return (
     <nav className="futuristic-card border-b border-cyan-400/20 sticky top-0 z-50 cyber-grid">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-18">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-18">
           <div className="flex items-center">
             <Link 
               to="/" 
-              className="text-4xl font-bold gradient-text hover:scale-110 transition-transform duration-500 text-glow text-cyber floating-animation"
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold gradient-text hover:scale-110 transition-transform duration-500 text-glow text-cyber floating-animation"
             >
               MindMaze
             </Link>
           </div>
           
-          <div className="flex space-x-3">
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex space-x-3">
             {navItems.map(({ path, icon: Icon, label }) => (
               <Link
                 key={path}
@@ -40,9 +41,30 @@ const Navbar = () => {
                 }`}
               >
                 <Icon size={20} className="text-glow" />
-                <span className="hidden sm:block font-bold text-sm tracking-wider">{label}</span>
+                <span className="font-bold text-sm tracking-wider">{label}</span>
               </Link>
             ))}
+          </div>
+
+          {/* Mobile Navigation */}
+          <div className="flex lg:hidden">
+            <div className="flex space-x-1 overflow-x-auto scrollbar-hide">
+              {navItems.map(({ path, icon: Icon, label }) => (
+                <Link
+                  key={path}
+                  to={path}
+                  className={`flex flex-col items-center justify-center min-w-0 px-2 py-2 rounded-lg transition-all duration-300 text-cyber ${
+                    location.pathname === path
+                      ? "futuristic-card border border-cyan-400/50 text-cyan-300 neon-glow"
+                      : "text-gray-300 hover:text-cyan-300"
+                  }`}
+                  title={label}
+                >
+                  <Icon size={16} className="text-glow mb-1" />
+                  <span className="text-xs font-semibold tracking-wider truncate max-w-12">{label}</span>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </div>

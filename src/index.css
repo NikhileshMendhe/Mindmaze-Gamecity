@@ -310,6 +310,16 @@
   background: linear-gradient(135deg, #ff00ff, #ffff00);
 }
 
+/* Scrollbar hiding utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Custom selection colors */
 ::selection {
   background: rgba(0, 255, 255, 0.3);

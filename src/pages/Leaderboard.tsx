@@ -34,29 +34,29 @@ const Leaderboard = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-4 text-white">Global Leaderboard</h1>
-        <p className="text-gray-400 text-lg">Top players competing in MindMaze</p>
+    <div className="max-w-6xl mx-auto px-2 sm:px-4 lg:px-8 py-4 sm:py-8">
+      <div className="text-center mb-6 sm:mb-8">
+        <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-white">Global Leaderboard</h1>
+        <p className="text-gray-400 text-base sm:text-lg">Top players competing in MindMaze</p>
       </div>
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 border border-purple-500/20 text-center">
-          <div className="text-2xl font-bold text-purple-400 mb-1">2,450</div>
-          <div className="text-gray-400 text-sm">Top Rating</div>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 mb-6 sm:mb-8">
+        <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-purple-500/20 text-center">
+          <div className="text-xl sm:text-2xl font-bold text-purple-400 mb-1">2,450</div>
+          <div className="text-gray-400 text-xs sm:text-sm">Top Rating</div>
         </div>
-        <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 border border-purple-500/20 text-center">
-          <div className="text-2xl font-bold text-pink-400 mb-1">1,234</div>
-          <div className="text-gray-400 text-sm">Active Players</div>
+        <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-purple-500/20 text-center">
+          <div className="text-xl sm:text-2xl font-bold text-pink-400 mb-1">1,234</div>
+          <div className="text-gray-400 text-xs sm:text-sm">Active Players</div>
         </div>
-        <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 border border-purple-500/20 text-center">
-          <div className="text-2xl font-bold text-cyan-400 mb-1">45,678</div>
-          <div className="text-gray-400 text-sm">Games Played</div>
+        <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-purple-500/20 text-center">
+          <div className="text-xl sm:text-2xl font-bold text-cyan-400 mb-1">45,678</div>
+          <div className="text-gray-400 text-xs sm:text-sm">Games Played</div>
         </div>
-        <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 border border-purple-500/20 text-center">
-          <div className="text-2xl font-bold text-yellow-400 mb-1">2:15</div>
-          <div className="text-gray-400 text-sm">Avg Game Time</div>
+        <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-3 sm:p-4 border border-purple-500/20 text-center">
+          <div className="text-xl sm:text-2xl font-bold text-yellow-400 mb-1">2:15</div>
+          <div className="text-gray-400 text-xs sm:text-sm">Avg Game Time</div>
         </div>
       </div>
 
@@ -73,12 +73,12 @@ const Leaderboard = () => {
           <table className="w-full">
             <thead className="bg-slate-700/50">
               <tr>
-                <th className="px-6 py-4 text-left text-gray-300 font-semibold">Rank</th>
-                <th className="px-6 py-4 text-left text-gray-300 font-semibold">Player</th>
-                <th className="px-6 py-4 text-center text-gray-300 font-semibold">Rating</th>
-                <th className="px-6 py-4 text-center text-gray-300 font-semibold">Wins</th>
-                <th className="px-6 py-4 text-center text-gray-300 font-semibold">Losses</th>
-                <th className="px-6 py-4 text-center text-gray-300 font-semibold">Win Rate</th>
+                <th className="px-2 sm:px-6 py-3 sm:py-4 text-left text-gray-300 font-semibold text-xs sm:text-sm">Rank</th>
+                <th className="px-2 sm:px-6 py-3 sm:py-4 text-left text-gray-300 font-semibold text-xs sm:text-sm">Player</th>
+                <th className="px-2 sm:px-6 py-3 sm:py-4 text-center text-gray-300 font-semibold text-xs sm:text-sm">Rating</th>
+                <th className="px-2 sm:px-6 py-3 sm:py-4 text-center text-gray-300 font-semibold text-xs sm:text-sm hidden sm:table-cell">Wins</th>
+                <th className="px-2 sm:px-6 py-3 sm:py-4 text-center text-gray-300 font-semibold text-xs sm:text-sm hidden sm:table-cell">Losses</th>
+                <th className="px-2 sm:px-6 py-3 sm:py-4 text-center text-gray-300 font-semibold text-xs sm:text-sm">Win Rate</th>
               </tr>
             </thead>
             <tbody>
@@ -89,25 +89,25 @@ const Leaderboard = () => {
                     player.rank <= 3 ? getRankStyle(player.rank) : ''
                   }`}
                 >
-                  <td className="px-6 py-4">
+                  <td className="px-2 sm:px-6 py-3 sm:py-4">
                     <div className="flex items-center">
                       {getRankIcon(player.rank)}
                     </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <div className="font-semibold text-white">{player.name}</div>
+                  <td className="px-2 sm:px-6 py-3 sm:py-4">
+                    <div className="font-semibold text-white text-sm sm:text-base">{player.name}</div>
                   </td>
-                  <td className="px-6 py-4 text-center">
-                    <div className="font-bold text-purple-400">{player.rating}</div>
+                  <td className="px-2 sm:px-6 py-3 sm:py-4 text-center">
+                    <div className="font-bold text-purple-400 text-sm sm:text-base">{player.rating}</div>
                   </td>
-                  <td className="px-6 py-4 text-center">
+                  <td className="px-2 sm:px-6 py-3 sm:py-4 text-center hidden sm:table-cell">
                     <div className="text-green-400 font-semibold">{player.wins}</div>
                   </td>
-                  <td className="px-6 py-4 text-center">
+                  <td className="px-2 sm:px-6 py-3 sm:py-4 text-center hidden sm:table-cell">
                     <div className="text-red-400 font-semibold">{player.losses}</div>
                   </td>
-                  <td className="px-6 py-4 text-center">
-                    <div className="font-semibold text-white">{player.winRate}%</div>
+                  <td className="px-2 sm:px-6 py-3 sm:py-4 text-center">
+                    <div className="font-semibold text-white text-sm sm:text-base">{player.winRate}%</div>
                   </td>
                 </tr>
               ))}
@@ -119,7 +119,7 @@ const Leaderboard = () => {
       {/* Your Ranking */}
       <div className="mt-8 bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-purple-500/20">
         <h3 className="text-xl font-bold mb-4 text-white">Your Ranking</h3>
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <div>
             <div className="flex justify-between items-center mb-2">
               <span className="text-gray-400">Current Rank</span>

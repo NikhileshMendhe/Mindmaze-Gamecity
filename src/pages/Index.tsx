@@ -62,7 +62,7 @@ const Index = () => {
           <p className="text-gray-400 text-lg">Navigate through different gaming neighborhoods in MindMaze</p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-16">
           <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-200 neon-glow">
             <div className="text-center">
               <div className="bg-gradient-to-br from-purple-500 to-pink-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -120,7 +120,7 @@ const Index = () => {
           <p className="text-gray-400 text-lg">Choose your battleground</p>
         </div>
         
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-16">
           <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-200 neon-glow">
             <div className="text-center">
               <div className="bg-gradient-to-br from-red-500 to-pink-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -171,7 +171,7 @@ const Index = () => {
               Access to the most popular free-to-play games that have defined gaming culture. From battle royales to MOBAs, 
               these games offer competitive multiplayer experiences with millions of active players worldwide.
             </p>
-            <div className="grid md:grid-cols-2 gap-4 text-gray-400">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-400">
               <div>
                 <h4 className="font-semibold text-white mb-2">Featured Titles Include:</h4>
                 <ul className="space-y-1">
@@ -205,7 +205,7 @@ const Index = () => {
               Test your cognitive abilities with our collection of brain-challenging puzzles. From classic games like Chess 
               to innovative logic puzzles, these games are designed to improve problem-solving skills and strategic thinking.
             </p>
-            <div className="grid md:grid-cols-2 gap-4 text-gray-400">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-400">
               <div>
                 <h4 className="font-semibold text-white mb-2">Available Puzzles:</h4>
                 <ul className="space-y-1">
@@ -239,7 +239,7 @@ const Index = () => {
               Enjoy classic arcade and casual games that bring nostalgic entertainment. Perfect for quick gaming sessions 
               and relaxation, these timeless games offer simple yet engaging gameplay mechanics.
             </p>
-            <div className="grid md:grid-cols-2 gap-4 text-gray-400">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-400">
               <div>
                 <h4 className="font-semibold text-white mb-2">Classic Games:</h4>
                 <ul className="space-y-1">
@@ -273,7 +273,7 @@ const Index = () => {
               Discover premium gaming experiences through our giveaway collection. Access high-quality games and exclusive 
               content that would normally require purchase, all available through limited-time promotional offers.
             </p>
-            <div className="grid md:grid-cols-2 gap-4 text-gray-400">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-400">
               <div>
                 <h4 className="font-semibold text-white mb-2">Featured Giveaways:</h4>
                 <ul className="space-y-1">
@@ -307,7 +307,7 @@ const Index = () => {
               Explore our curated collection of top-rated character classes and RPG elements. Each entry features detailed 
               statistics, difficulty ratings, and strategic gameplay mechanics for serious RPG enthusiasts.
             </p>
-            <div className="grid md:grid-cols-2 gap-4 text-gray-400">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-400">
               <div>
                 <h4 className="font-semibold text-white mb-2">Character Classes:</h4>
                 <ul className="space-y-1">

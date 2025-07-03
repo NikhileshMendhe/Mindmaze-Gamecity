@@ -7,13 +7,13 @@ const YouTubers = () => {
   const { data: youtubers, isLoading, error } = useGamingYoutubers();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8 py-4 sm:py-8">
       {/* Header */}
-      <div className="text-center mb-12">
-        <h1 className="text-5xl font-bold mb-6 gradient-text text-glow floating-animation">
+      <div className="text-center mb-8 sm:mb-12">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 gradient-text text-glow floating-animation">
           Gaming YouTubers
         </h1>
-        <p className="text-gray-300 text-xl max-w-3xl mx-auto leading-relaxed">
+        <p className="text-gray-300 text-base sm:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed px-4">
           Discover the most popular gaming content creators from around the world. 
           From epic gameplay to entertaining commentary, these YouTubers have captured millions of hearts.
         </p>
@@ -36,7 +36,7 @@ const YouTubers = () => {
       )}
 
       {!isLoading && !error && youtubers && (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 grid-appear">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 grid-appear">
           {youtubers.map((youtuber) => (
             <GamingYoutuberCard key={youtuber.id} youtuber={youtuber} />
           ))}
