@@ -7,17 +7,37 @@ export const useBackgroundMusic = () => {
 
   const initializeAudio = useCallback(() => {
     if (!audioRef.current) {
-      audioRef.current = new Audio('/background-music.mp3');
+      // Try multiple possible audio file formats
+      const audioSources = [
+        '/littleroot-town.mp3',
+        '/background-music.mp3',
+        '/pokemon-music.mp3'
+      ];
+      
+      audioRef.current = new Audio();
       audioRef.current.loop = true;
-      audioRef.current.volume = 0.3; // Set to 30% volume by default
+      audioRef.current.volume = 0.4; // Set to 40% volume by default
+      
+      // Try to load the first available audio source
+      let currentSourceIndex = 0;
+      const tryNextSource = () => {
+        if (currentSourceIndex < audioSources.length) {
+          audioRef.current!.src = audioSources[currentSourceIndex];
+          audioRef.current!.load();
+          currentSourceIndex++;
+        }
+      };
       
       audioRef.current.addEventListener('canplaythrough', () => {
         setIsLoaded(true);
       });
       
       audioRef.current.addEventListener('error', () => {
-        console.warn('Background music file not found. Please add your audio file as /public/background-music.mp3');
+        tryNextSource();
       });
+      
+      // Start with the first source
+      tryNextSource();
     }
   }, []);
 

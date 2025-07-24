@@ -30,11 +30,11 @@ const Index = () => {
             
             {/* Big Play Section */}
             <div className="mb-12">
-              <div className="inline-block">
-                <div 
-                  className="bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 p-1 rounded-3xl hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-purple-500/50 cursor-pointer"
-                  onClick={toggleMusic}
-                >
+              <div 
+                className="inline-block cursor-pointer"
+                onClick={toggleMusic}
+              >
+                <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 p-1 rounded-3xl hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-purple-500/50">
                   <div className="bg-gradient-to-r from-purple-500 to-pink-500 px-12 py-6 rounded-3xl text-white font-bold text-2xl md:text-3xl flex items-center gap-4 hover:from-purple-600 hover:to-pink-600 transition-all duration-200">
                     <Play size={36} className="text-white" />
                     BIG PLAY
@@ -42,27 +42,9 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              
-              {/* Music Control & Game Link */}
-              <div className="flex flex-col items-center gap-4 mt-6">
-                <div className="flex items-center gap-4">
-                  <button
-                    onClick={toggleMusic}
-                    className="flex items-center gap-2 px-4 py-2 bg-slate-800/50 backdrop-blur-sm rounded-lg border border-purple-500/30 hover:border-purple-500/50 text-purple-300 hover:text-purple-200 transition-all duration-200"
-                  >
-                    {isPlaying ? <Volume2 size={20} /> : <VolumeX size={20} />}
-                    {isPlaying ? 'Music On' : 'Music Off'}
-                  </button>
-                  
-                  <Link to="/lobby" className="px-6 py-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg text-white font-semibold hover:from-blue-600 hover:to-purple-600 transition-all duration-200">
-                    Enter Game Lobby
-                  </Link>
-                </div>
-                
-                <p className="text-gray-400 text-lg">
-                  {isPlaying ? '🎵 Background music playing' : 'Click BIG PLAY to start music & explore games'}
-                </p>
-              </div>
+              <p className="text-gray-400 mt-4 text-lg">
+                Jump into the action - All games, One destination
+              </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
