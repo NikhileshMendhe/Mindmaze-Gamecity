@@ -4,6 +4,9 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "./contexts/ThemeContext";
+import ThemeSlider from "./components/ThemeSlider";
+import OmnitrixNavbar from "./components/OmnitrixNavbar";
 import Index from "./pages/Index";
 import GameLobby from "./pages/GameLobby";
 import PuzzleGame from "./pages/PuzzleGame";
@@ -19,13 +22,16 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <div className="min-h-screen">
-          <Navbar />
-          <Routes>
+    <ThemeProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <ThemeSlider />
+          <OmnitrixNavbar />
+          <div className="min-h-screen pt-16">
+            <Navbar />
+            <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/lobby" element={<GameLobby />} />
             <Route path="/game/:gameId" element={<PuzzleGame />} />
@@ -35,10 +41,11 @@ const App = () => (
             <Route path="/god-of-games" element={<GodOfGames />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </TooltipProvider>
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 

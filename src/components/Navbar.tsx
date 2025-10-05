@@ -16,7 +16,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="futuristic-card border-b border-cyan-400/20 sticky top-0 z-50 cyber-grid">
+    <nav className="futuristic-card border-b border-cyan-400/20 sticky top-0 z-40 cyber-grid lg:hidden">
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-18">
           <div className="flex items-center">

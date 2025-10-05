@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { Play, Users, Trophy, Zap, Star, Gift, Gamepad2, Puzzle, MapPin, Volume2, VolumeX } from "lucide-react";
+import { Play, Users, Trophy, Zap, Star, Gift, Gamepad2, Puzzle, MapPin } from "lucide-react";
 import { useBackgroundMusic } from "@/hooks/useBackgroundMusic";
+import CarGameSection from "@/components/CarGameSection";
 
 const Index = () => {
   const { isPlaying, toggleMusic } = useBackgroundMusic();
@@ -157,6 +158,9 @@ const Index = () => {
             </div>
           </div>
         </div>
+
+        {/* Car Game Section */}
+        <CarGameSection />
 
         {/* Detailed Game Information */}
         <div className="text-center mb-16">
