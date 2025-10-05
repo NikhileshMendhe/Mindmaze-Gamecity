@@ -5,7 +5,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import ThemeSlider from "./components/ThemeSlider";
 import OmnitrixNavbar from "./components/OmnitrixNavbar";
 import Index from "./pages/Index";
 import GameLobby from "./pages/GameLobby";
@@ -27,9 +26,8 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <ThemeSlider />
           <OmnitrixNavbar />
-          <div className="min-h-screen pt-16">
+          <div className="min-h-screen">
             <Navbar />
             <Routes>
             <Route path="/" element={<Index />} />
