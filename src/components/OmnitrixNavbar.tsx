@@ -211,31 +211,70 @@ const OmnitrixNavbar = () => {
           </div>
         </button>
 
-        {/* Connecting Lines (when expanded) */}
+        {/* Curved Petals (when expanded) */}
         {isExpanded && (
-          <svg className="absolute inset-0 pointer-events-none" style={{ opacity: 0.5, width: '100%', height: '100%' }}>
+          <svg className="absolute inset-0 pointer-events-none" style={{ width: '100%', height: '100%' }}>
+            <defs>
+              <linearGradient id="petalGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style={{ stopColor: borderColor, stopOpacity: 0.8 }} />
+                <stop offset="50%" style={{ stopColor: borderColor, stopOpacity: 0.4 }} />
+                <stop offset="100%" style={{ stopColor: borderColor, stopOpacity: 0.8 }} />
+              </linearGradient>
+            </defs>
             {navItems.map((_, index) => {
               const angle = (index * 360) / navItems.length;
               const centerPercent = 50;
-              const radiusPercent = 46;
-              const x2 = centerPercent + Math.cos((angle * Math.PI) / 180) * radiusPercent;
-              const y2 = centerPercent + Math.sin((angle * Math.PI) / 180) * radiusPercent;
+              const radiusPercent = 48;
+              const angleRad = (angle * Math.PI) / 180;
+              
+              const endX = centerPercent + Math.cos(angleRad) * radiusPercent;
+              const endY = centerPercent + Math.sin(angleRad) * radiusPercent;
+              
+              // Create curved control points for petal effect
+              const controlDistance = radiusPercent * 0.6;
+              const perpAngle1 = angleRad - Math.PI / 6;
+              const perpAngle2 = angleRad + Math.PI / 6;
+              
+              const cp1X = centerPercent + Math.cos(perpAngle1) * controlDistance;
+              const cp1Y = centerPercent + Math.sin(perpAngle1) * controlDistance;
+              const cp2X = centerPercent + Math.cos(perpAngle2) * controlDistance;
+              const cp2Y = centerPercent + Math.sin(perpAngle2) * controlDistance;
               
               return (
-                <line
-                  key={index}
-                  x1={`${centerPercent}%`}
-                  y1={`${centerPercent}%`}
-                  x2={`${x2}%`}
-                  y2={`${y2}%`}
-                  stroke={borderColor}
-                  strokeWidth="3"
-                  style={{
-                    strokeDasharray: '8,5',
-                    animation: 'dash 12s linear infinite',
-                    filter: `drop-shadow(0 0 8px ${glowColor})`
-                  }}
-                />
+                <g key={index}>
+                  {/* Curved petal path */}
+                  <path
+                    d={`M ${centerPercent}% ${centerPercent}% Q ${cp1X}% ${cp1Y}%, ${endX}% ${endY}% Q ${cp2X}% ${cp2Y}%, ${centerPercent}% ${centerPercent}%`}
+                    fill="url(#petalGradient)"
+                    opacity="0.3"
+                    style={{
+                      filter: `drop-shadow(0 0 15px ${glowColor})`,
+                      animation: 'petalPulse 3s ease-in-out infinite',
+                      animationDelay: `${index * 0.15}s`
+                    }}
+                  />
+                  {/* Outline stroke */}
+                  <path
+                    d={`M ${centerPercent}% ${centerPercent}% Q ${cp1X}% ${cp1Y}%, ${endX}% ${endY}%`}
+                    stroke={borderColor}
+                    strokeWidth="2"
+                    fill="none"
+                    opacity="0.6"
+                    style={{
+                      filter: `drop-shadow(0 0 8px ${glowColor})`
+                    }}
+                  />
+                  <path
+                    d={`M ${centerPercent}% ${centerPercent}% Q ${cp2X}% ${cp2Y}%, ${endX}% ${endY}%`}
+                    stroke={borderColor}
+                    strokeWidth="2"
+                    fill="none"
+                    opacity="0.6"
+                    style={{
+                      filter: `drop-shadow(0 0 8px ${glowColor})`
+                    }}
+                  />
+                </g>
               );
             })}
           </svg>
@@ -257,6 +296,14 @@ const OmnitrixNavbar = () => {
           50% {
             opacity: 0.9;
             transform: scale(1.05);
+          }
+        }
+        @keyframes petalPulse {
+          0%, 100% {
+            opacity: 0.3;
+          }
+          50% {
+            opacity: 0.5;
           }
         }
       `}</style>
