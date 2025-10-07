@@ -64,10 +64,10 @@ const OmnitrixNavbar = () => {
         <div 
           className="relative pointer-events-auto"
           style={{
-            width: isExpanded ? '90vmin' : '200px',
-            height: isExpanded ? '90vmin' : '200px',
-            maxWidth: isExpanded ? '600px' : '200px',
-            maxHeight: isExpanded ? '600px' : '200px',
+            width: isExpanded ? '95vmin' : '240px',
+            height: isExpanded ? '95vmin' : '240px',
+            maxWidth: isExpanded ? '700px' : '240px',
+            maxHeight: isExpanded ? '700px' : '240px',
             transition: 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
           }}
         >
@@ -93,8 +93,8 @@ const OmnitrixNavbar = () => {
         >
           {navItems.map((item, index) => {
             const angle = (index * 360) / navItems.length;
-            const radius = isExpanded ? 45 : 38;
-            const size = isExpanded ? 18 : 14;
+            const radius = isExpanded ? 46 : 42;
+            const size = isExpanded ? 16 : 13;
             
             return (
               <Tooltip key={`${item.path}-${item.label}`} delayDuration={0}>
@@ -113,28 +113,28 @@ const OmnitrixNavbar = () => {
                       style={{
                         width: `${size}vmin`,
                         height: `${size}vmin`,
-                        minWidth: isExpanded ? '90px' : '55px',
-                        minHeight: isExpanded ? '90px' : '55px',
-                        maxWidth: isExpanded ? '120px' : '70px',
-                        maxHeight: isExpanded ? '120px' : '70px',
+                        minWidth: isExpanded ? '95px' : '65px',
+                        minHeight: isExpanded ? '95px' : '65px',
+                        maxWidth: isExpanded ? '130px' : '80px',
+                        maxHeight: isExpanded ? '130px' : '80px',
                       }}
                     >
                       <div 
                         className="w-full h-full rounded-full flex items-center justify-center transition-all duration-700"
                         style={{
-                          background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), rgba(255,255,255,0.15))`,
-                          border: `3px solid ${location.pathname === item.path ? borderColor : 'rgba(255, 255, 255, 0.5)'}`,
+                          background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), rgba(255,255,255,0.2))`,
+                          border: `3px solid ${location.pathname === item.path ? borderColor : 'rgba(255, 255, 255, 0.7)'}`,
                           boxShadow: location.pathname === item.path 
-                            ? `0 0 40px ${glowColor}, inset 0 0 25px rgba(255,255,255,0.4), 0 5px 20px rgba(0,0,0,0.3)` 
-                            : `0 0 20px rgba(255, 255, 255, 0.3), inset 0 0 20px rgba(255,255,255,0.25), 0 5px 15px rgba(0,0,0,0.2)`,
-                          backdropFilter: 'blur(12px)',
-                          transform: isExpanded ? 'scale(1)' : 'scale(0.85)',
+                            ? `0 0 50px ${glowColor}, 0 0 30px ${glowColor}, inset 0 0 30px rgba(255,255,255,0.5), 0 8px 25px rgba(0,0,0,0.4)` 
+                            : `0 0 25px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 255, 255, 0.3), inset 0 0 25px rgba(255,255,255,0.3), 0 8px 20px rgba(0,0,0,0.3)`,
+                          backdropFilter: 'blur(15px)',
+                          transform: isExpanded ? 'scale(1.05)' : 'scale(1)',
                         }}
                       >
                         <item.icon 
-                          size={isExpanded ? 40 : 24} 
-                          className="text-white drop-shadow-lg transition-all duration-700 group-hover:scale-125"
-                          strokeWidth={2.5}
+                          size={isExpanded ? 45 : 28} 
+                          className="text-white drop-shadow-2xl transition-all duration-700 group-hover:scale-125"
+                          strokeWidth={2.8}
                         />
                       </div>
                     </div>
@@ -171,8 +171,8 @@ const OmnitrixNavbar = () => {
           }}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-700 group hover:scale-110 z-10"
           style={{
-            width: isExpanded ? '100px' : '70px',
-            height: isExpanded ? '100px' : '70px',
+            width: isExpanded ? '110px' : '85px',
+            height: isExpanded ? '110px' : '85px',
           }}
         >
           <div 
@@ -213,11 +213,11 @@ const OmnitrixNavbar = () => {
 
         {/* Connecting Lines (when expanded) */}
         {isExpanded && (
-          <svg className="absolute inset-0 pointer-events-none" style={{ opacity: 0.4, width: '100%', height: '100%' }}>
+          <svg className="absolute inset-0 pointer-events-none" style={{ opacity: 0.5, width: '100%', height: '100%' }}>
             {navItems.map((_, index) => {
               const angle = (index * 360) / navItems.length;
               const centerPercent = 50;
-              const radiusPercent = 45;
+              const radiusPercent = 46;
               const x2 = centerPercent + Math.cos((angle * Math.PI) / 180) * radiusPercent;
               const y2 = centerPercent + Math.sin((angle * Math.PI) / 180) * radiusPercent;
               
@@ -229,11 +229,11 @@ const OmnitrixNavbar = () => {
                   x2={`${x2}%`}
                   y2={`${y2}%`}
                   stroke={borderColor}
-                  strokeWidth="2"
+                  strokeWidth="3"
                   style={{
-                    strokeDasharray: '5,5',
+                    strokeDasharray: '8,5',
                     animation: 'dash 12s linear infinite',
-                    filter: `drop-shadow(0 0 5px ${glowColor})`
+                    filter: `drop-shadow(0 0 8px ${glowColor})`
                   }}
                 />
               );
