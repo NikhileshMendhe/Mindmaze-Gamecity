@@ -9,16 +9,17 @@ const OmnitrixNavbar = () => {
   const { theme } = useTheme();
   const [isExpanded, setIsExpanded] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [rotation, setRotation] = useState(0);
   
   const navItems = [
-    { path: "/", icon: Home, label: "Home", angle: 0 },
-    { path: "/lobby", icon: Gamepad2, label: "Play", angle: 45 },
-    { path: "/youtubers", icon: Users, label: "Community", angle: 90 },
-    { path: "/leaderboard", icon: Trophy, label: "Leaderboard", angle: 135 },
-    { path: "/youtubers", icon: Video, label: "Streams", angle: 180 },
-    { path: "/king-of-games", icon: Store, label: "Store", angle: 225 },
-    { path: "/profile", icon: MessageCircle, label: "Chat", angle: 270 },
-    { path: "/profile", icon: Settings, label: "Settings", angle: 315 },
+    { path: "/", icon: Home, label: "Home" },
+    { path: "/lobby", icon: Gamepad2, label: "Play" },
+    { path: "/youtubers", icon: Users, label: "Community" },
+    { path: "/leaderboard", icon: Trophy, label: "Leaderboard" },
+    { path: "/youtubers", icon: Video, label: "Streams" },
+    { path: "/king-of-games", icon: Store, label: "Store" },
+    { path: "/profile", icon: MessageCircle, label: "Chat" },
+    { path: "/profile", icon: Settings, label: "Settings" },
   ];
 
   const playSound = () => {
@@ -63,10 +64,10 @@ const OmnitrixNavbar = () => {
         <div 
           className="relative pointer-events-auto"
           style={{
-            width: isExpanded ? '90vmin' : '80px',
-            height: isExpanded ? '90vmin' : '80px',
-            maxWidth: isExpanded ? '600px' : '80px',
-            maxHeight: isExpanded ? '600px' : '80px',
+            width: isExpanded ? '90vmin' : '200px',
+            height: isExpanded ? '90vmin' : '200px',
+            maxWidth: isExpanded ? '600px' : '200px',
+            maxHeight: isExpanded ? '600px' : '200px',
             transition: 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
           }}
         >
@@ -82,52 +83,99 @@ const OmnitrixNavbar = () => {
           />
         )}
 
-        {/* Rotating Ring Effect */}
-        {isExpanded && (
-          <div 
-            className="absolute inset-0 rounded-full border-2 animate-spin"
-            style={{
-              borderColor: `${borderColor} transparent ${borderColor} transparent`,
-              animationDuration: '8s',
-              filter: `drop-shadow(0 0 20px ${glowColor})`
-            }}
-          />
-        )}
-
-        {/* Energy Particles */}
-        {isExpanded && (
-          <>
-            {[...Array(16)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute w-1 h-1 md:w-2 md:h-2 rounded-full animate-pulse"
-                style={{
-                  background: coreColor,
-                  boxShadow: `0 0 15px ${glowColor}`,
-                  left: '50%',
-                  top: '50%',
-                  transform: `translate(-50%, -50%) rotate(${i * (360 / 16)}deg) translateY(-${isExpanded ? '40%' : '0'})`,
-                  transition: 'all 0.8s ease-out',
-                  opacity: isExpanded ? 0.7 : 0,
-                  animationDelay: `${i * 0.05}s`,
-                  animationDuration: '2s'
-                }}
-              />
-            ))}
-          </>
-        )}
+        {/* Spiral Icon Circles - Always Visible */}
+        <div 
+          className="absolute inset-0"
+          style={{
+            transform: `rotate(${rotation}deg)`,
+            transition: 'transform 0.5s linear'
+          }}
+        >
+          {navItems.map((item, index) => {
+            const angle = (index * 360) / navItems.length;
+            const radius = isExpanded ? 42 : 35;
+            const size = isExpanded ? 20 : 16;
+            
+            return (
+              <Tooltip key={`${item.path}-${item.label}`} delayDuration={0}>
+                <TooltipTrigger asChild>
+                  <Link
+                    to={item.path}
+                    onClick={() => handleNavClick(item.path)}
+                    className="absolute top-1/2 left-1/2"
+                    style={{
+                      transform: `translate(-50%, -50%) rotate(${angle}deg) translateY(-${radius}%) rotate(-${angle + rotation}deg)`,
+                      transition: 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
+                    }}
+                  >
+                    <div 
+                      className="group relative"
+                      style={{
+                        width: `${size}vmin`,
+                        height: `${size}vmin`,
+                        minWidth: isExpanded ? '80px' : '50px',
+                        minHeight: isExpanded ? '80px' : '50px',
+                        maxWidth: isExpanded ? '100px' : '60px',
+                        maxHeight: isExpanded ? '100px' : '60px',
+                      }}
+                    >
+                      <div 
+                        className="w-full h-full rounded-full flex items-center justify-center transition-all duration-300"
+                        style={{
+                          background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), rgba(255,255,255,0.1))`,
+                          border: `2px solid ${location.pathname === item.path ? borderColor : 'rgba(255, 255, 255, 0.4)'}`,
+                          boxShadow: location.pathname === item.path 
+                            ? `0 0 30px ${glowColor}, inset 0 0 20px rgba(255,255,255,0.3)` 
+                            : `0 0 15px rgba(255, 255, 255, 0.2), inset 0 0 15px rgba(255,255,255,0.2)`,
+                          backdropFilter: 'blur(10px)',
+                        }}
+                      >
+                        <item.icon 
+                          size={isExpanded ? 32 : 20} 
+                          className="text-white drop-shadow-lg transition-all duration-300 group-hover:scale-110"
+                          strokeWidth={2.5}
+                        />
+                      </div>
+                    </div>
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent 
+                  side="left" 
+                  className="text-sm font-semibold"
+                  style={{
+                    background: `linear-gradient(135deg, ${borderColor}, ${theme === 'blue' ? '#1e40af' : '#991b1b'})`,
+                    border: `2px solid ${borderColor}`,
+                    boxShadow: `0 0 20px ${glowColor}`,
+                    color: 'white'
+                  }}
+                >
+                  {item.label}
+                </TooltipContent>
+              </Tooltip>
+            );
+          })}
+        </div>
 
         {/* Central Omnitrix Core */}
         <button
           onClick={handleCoreClick}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-700 group hover:scale-110"
+          onMouseEnter={() => {
+            const interval = setInterval(() => {
+              setRotation(prev => prev + 1);
+            }, 16);
+            (window as any).rotationInterval = interval;
+          }}
+          onMouseLeave={() => {
+            clearInterval((window as any).rotationInterval);
+          }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-700 group hover:scale-110 z-10"
           style={{
-            width: isExpanded ? '80px' : '80px',
-            height: isExpanded ? '80px' : '80px',
+            width: isExpanded ? '100px' : '70px',
+            height: isExpanded ? '100px' : '70px',
           }}
         >
           <div 
-            className="w-full h-full rounded-full transition-all duration-700 relative"
+            className="w-full h-full rounded-full transition-all duration-700 relative cursor-pointer"
             style={{
               background: `radial-gradient(circle at 30% 30%, ${coreColor} 0%, ${theme === 'blue' ? '#1e40af' : '#991b1b'} 50%, ${theme === 'blue' ? '#1e3a8a' : '#7f1d1d'} 100%)`,
               boxShadow: `
@@ -137,7 +185,7 @@ const OmnitrixNavbar = () => {
                 inset -8px -8px 30px rgba(0,0,0,0.5),
                 0 10px 40px rgba(0,0,0,0.6)
               `,
-              animation: 'pulse 2s ease-in-out infinite',
+              animation: 'corePulse 2s ease-in-out infinite',
               border: `4px solid ${borderColor}`
             }}
           >
@@ -162,83 +210,11 @@ const OmnitrixNavbar = () => {
           </div>
         </button>
 
-        {/* Orbiting Navigation Icons */}
-        <div className={`absolute inset-0 transition-all duration-700 ${isExpanded ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-          {navItems.map(({ path, icon: Icon, label, angle }) => {
-            const isActive = location.pathname === path;
-            const radius = isExpanded ? '42%' : '0%';
-            const x = Math.cos((angle * Math.PI) / 180);
-            const y = Math.sin((angle * Math.PI) / 180);
-
-            return (
-              <Tooltip key={`${path}-${label}`} delayDuration={0}>
-                <TooltipTrigger asChild>
-                  <Link
-                    to={path}
-                    onClick={() => handleNavClick(path)}
-                    className="absolute top-1/2 left-1/2 group"
-                    style={{
-                      transform: `translate(calc(-50% + ${x} * ${radius}), calc(-50% + ${y} * ${radius}))`,
-                      transition: 'all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1)',
-                      transitionDelay: isExpanded ? `${angle / 360 * 0.3}s` : '0s'
-                    }}
-                  >
-                    <div 
-                      className={`w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center transition-all duration-300 relative ${
-                        isActive 
-                          ? 'scale-110' 
-                          : 'scale-100 group-hover:scale-125'
-                      }`}
-                      style={{
-                        background: isActive 
-                          ? `radial-gradient(circle at 30% 30%, ${borderColor}, ${theme === 'blue' ? '#1e40af' : '#991b1b'})` 
-                          : `linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05))`,
-                        border: `3px solid ${isActive ? borderColor : 'rgba(255, 255, 255, 0.5)'}`,
-                        boxShadow: isActive 
-                          ? `0 0 40px ${glowColor}, 0 0 80px ${glowColor}, inset 0 0 25px rgba(255,255,255,0.3), 0 8px 32px rgba(0,0,0,0.4)` 
-                          : `0 6px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255,255,255,0.15)`,
-                        backdropFilter: 'blur(12px)'
-                      }}
-                    >
-                      <Icon 
-                        size={28} 
-                        className={`${isActive ? 'text-white' : 'text-gray-100'} transition-colors`}
-                        strokeWidth={2.5}
-                      />
-                      {/* Icon glow effect */}
-                      {isActive && (
-                        <div 
-                          className="absolute inset-0 rounded-full"
-                          style={{
-                            background: `radial-gradient(circle, ${glowColor} 0%, transparent 70%)`,
-                            animation: 'pulse 2s ease-in-out infinite'
-                          }}
-                        />
-                      )}
-                    </div>
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent 
-                  side="left" 
-                  className="text-sm font-semibold"
-                  style={{
-                    background: `linear-gradient(135deg, ${borderColor}, ${theme === 'blue' ? '#1e40af' : '#991b1b'})`,
-                    border: `2px solid ${borderColor}`,
-                    boxShadow: `0 0 20px ${glowColor}`,
-                    color: 'white'
-                  }}
-                >
-                  {label}
-                </TooltipContent>
-              </Tooltip>
-            );
-          })}
-        </div>
-
         {/* Connecting Lines (when expanded) */}
         {isExpanded && (
-          <svg className="absolute inset-0 pointer-events-none" style={{ opacity: 0.5, width: '100%', height: '100%' }}>
-            {navItems.map(({ angle }, index) => {
+          <svg className="absolute inset-0 pointer-events-none" style={{ opacity: 0.3, width: '100%', height: '100%' }}>
+            {navItems.map((_, index) => {
+              const angle = (index * 360) / navItems.length;
               const centerPercent = 50;
               const radiusPercent = 42;
               const x2 = centerPercent + Math.cos((angle * Math.PI) / 180) * radiusPercent;
@@ -272,12 +248,14 @@ const OmnitrixNavbar = () => {
             stroke-dashoffset: -1000;
           }
         }
-        @keyframes pulse {
+        @keyframes corePulse {
           0%, 100% {
             opacity: 1;
+            transform: scale(1);
           }
           50% {
-            opacity: 0.8;
+            opacity: 0.9;
+            transform: scale(1.05);
           }
         }
       `}</style>
