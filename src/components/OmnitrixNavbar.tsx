@@ -83,7 +83,7 @@ const OmnitrixNavbar = () => {
           />
         )}
 
-        {/* Spiral Icon Circles - Always Visible */}
+        {/* Flower-like Icon Circles */}
         <div 
           className="absolute inset-0"
           style={{
@@ -93,8 +93,8 @@ const OmnitrixNavbar = () => {
         >
           {navItems.map((item, index) => {
             const angle = (index * 360) / navItems.length;
-            const radius = isExpanded ? 42 : 35;
-            const size = isExpanded ? 20 : 16;
+            const radius = isExpanded ? 45 : 38;
+            const size = isExpanded ? 18 : 14;
             
             return (
               <Tooltip key={`${item.path}-${item.label}`} delayDuration={0}>
@@ -113,26 +113,27 @@ const OmnitrixNavbar = () => {
                       style={{
                         width: `${size}vmin`,
                         height: `${size}vmin`,
-                        minWidth: isExpanded ? '80px' : '50px',
-                        minHeight: isExpanded ? '80px' : '50px',
-                        maxWidth: isExpanded ? '100px' : '60px',
-                        maxHeight: isExpanded ? '100px' : '60px',
+                        minWidth: isExpanded ? '90px' : '55px',
+                        minHeight: isExpanded ? '90px' : '55px',
+                        maxWidth: isExpanded ? '120px' : '70px',
+                        maxHeight: isExpanded ? '120px' : '70px',
                       }}
                     >
                       <div 
-                        className="w-full h-full rounded-full flex items-center justify-center transition-all duration-300"
+                        className="w-full h-full rounded-full flex items-center justify-center transition-all duration-700"
                         style={{
-                          background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), rgba(255,255,255,0.1))`,
-                          border: `2px solid ${location.pathname === item.path ? borderColor : 'rgba(255, 255, 255, 0.4)'}`,
+                          background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), rgba(255,255,255,0.15))`,
+                          border: `3px solid ${location.pathname === item.path ? borderColor : 'rgba(255, 255, 255, 0.5)'}`,
                           boxShadow: location.pathname === item.path 
-                            ? `0 0 30px ${glowColor}, inset 0 0 20px rgba(255,255,255,0.3)` 
-                            : `0 0 15px rgba(255, 255, 255, 0.2), inset 0 0 15px rgba(255,255,255,0.2)`,
-                          backdropFilter: 'blur(10px)',
+                            ? `0 0 40px ${glowColor}, inset 0 0 25px rgba(255,255,255,0.4), 0 5px 20px rgba(0,0,0,0.3)` 
+                            : `0 0 20px rgba(255, 255, 255, 0.3), inset 0 0 20px rgba(255,255,255,0.25), 0 5px 15px rgba(0,0,0,0.2)`,
+                          backdropFilter: 'blur(12px)',
+                          transform: isExpanded ? 'scale(1)' : 'scale(0.85)',
                         }}
                       >
                         <item.icon 
-                          size={isExpanded ? 32 : 20} 
-                          className="text-white drop-shadow-lg transition-all duration-300 group-hover:scale-110"
+                          size={isExpanded ? 40 : 24} 
+                          className="text-white drop-shadow-lg transition-all duration-700 group-hover:scale-125"
                           strokeWidth={2.5}
                         />
                       </div>
@@ -212,11 +213,11 @@ const OmnitrixNavbar = () => {
 
         {/* Connecting Lines (when expanded) */}
         {isExpanded && (
-          <svg className="absolute inset-0 pointer-events-none" style={{ opacity: 0.3, width: '100%', height: '100%' }}>
+          <svg className="absolute inset-0 pointer-events-none" style={{ opacity: 0.4, width: '100%', height: '100%' }}>
             {navItems.map((_, index) => {
               const angle = (index * 360) / navItems.length;
               const centerPercent = 50;
-              const radiusPercent = 42;
+              const radiusPercent = 45;
               const x2 = centerPercent + Math.cos((angle * Math.PI) / 180) * radiusPercent;
               const y2 = centerPercent + Math.sin((angle * Math.PI) / 180) * radiusPercent;
               
