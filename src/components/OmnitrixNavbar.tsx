@@ -215,11 +215,19 @@ const OmnitrixNavbar = () => {
         {isExpanded && (
           <svg className="absolute inset-0 pointer-events-none" style={{ width: '100%', height: '100%' }}>
             <defs>
-              <linearGradient id="petalGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" style={{ stopColor: borderColor, stopOpacity: 0.8 }} />
-                <stop offset="50%" style={{ stopColor: borderColor, stopOpacity: 0.4 }} />
-                <stop offset="100%" style={{ stopColor: borderColor, stopOpacity: 0.8 }} />
-              </linearGradient>
+              <radialGradient id="petalGradient">
+                <stop offset="0%" style={{ stopColor: borderColor, stopOpacity: 0.15 }} />
+                <stop offset="40%" style={{ stopColor: borderColor, stopOpacity: 0.35 }} />
+                <stop offset="70%" style={{ stopColor: borderColor, stopOpacity: 0.25 }} />
+                <stop offset="100%" style={{ stopColor: borderColor, stopOpacity: 0.1 }} />
+              </radialGradient>
+              <filter id="petalGlow">
+                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
             </defs>
             {navItems.map((_, index) => {
               const angle = (index * 360) / navItems.length;
@@ -230,48 +238,81 @@ const OmnitrixNavbar = () => {
               const endX = centerPercent + Math.cos(angleRad) * radiusPercent;
               const endY = centerPercent + Math.sin(angleRad) * radiusPercent;
               
-              // Create curved control points for petal effect
-              const controlDistance = radiusPercent * 0.6;
-              const perpAngle1 = angleRad - Math.PI / 6;
-              const perpAngle2 = angleRad + Math.PI / 6;
+              // Create wider, more natural petal curves
+              const petalWidth = radiusPercent * 0.4; // Width of the petal
+              const curveFactor = 0.7; // How curved the petal is
               
-              const cp1X = centerPercent + Math.cos(perpAngle1) * controlDistance;
-              const cp1Y = centerPercent + Math.sin(perpAngle1) * controlDistance;
-              const cp2X = centerPercent + Math.cos(perpAngle2) * controlDistance;
-              const cp2Y = centerPercent + Math.sin(perpAngle2) * controlDistance;
+              // Left edge of petal
+              const leftAngle = angleRad - Math.PI / 8;
+              const leftMidX = centerPercent + Math.cos(leftAngle) * radiusPercent * curveFactor;
+              const leftMidY = centerPercent + Math.sin(leftAngle) * radiusPercent * curveFactor;
+              
+              // Right edge of petal
+              const rightAngle = angleRad + Math.PI / 8;
+              const rightMidX = centerPercent + Math.cos(rightAngle) * radiusPercent * curveFactor;
+              const rightMidY = centerPercent + Math.sin(rightAngle) * radiusPercent * curveFactor;
+              
+              // Control points for smooth curves from center
+              const startControlDist = 12;
+              const sc1X = centerPercent + Math.cos(leftAngle) * startControlDist;
+              const sc1Y = centerPercent + Math.sin(leftAngle) * startControlDist;
+              const sc2X = centerPercent + Math.cos(rightAngle) * startControlDist;
+              const sc2Y = centerPercent + Math.sin(rightAngle) * startControlDist;
               
               return (
-                <g key={index}>
-                  {/* Curved petal path */}
+                <g key={index} style={{ 
+                  animation: 'petalPulse 3s ease-in-out infinite',
+                  animationDelay: `${index * 0.15}s`
+                }}>
+                  {/* Main petal shape with gradient fill */}
                   <path
-                    d={`M ${centerPercent}% ${centerPercent}% Q ${cp1X}% ${cp1Y}%, ${endX}% ${endY}% Q ${cp2X}% ${cp2Y}%, ${centerPercent}% ${centerPercent}%`}
+                    d={`
+                      M ${centerPercent}% ${centerPercent}%
+                      Q ${sc1X}% ${sc1Y}%, ${leftMidX}% ${leftMidY}%
+                      Q ${endX}% ${endY}%, ${endX}% ${endY}%
+                      Q ${endX}% ${endY}%, ${rightMidX}% ${rightMidY}%
+                      Q ${sc2X}% ${sc2Y}%, ${centerPercent}% ${centerPercent}%
+                      Z
+                    `}
                     fill="url(#petalGradient)"
-                    opacity="0.3"
+                    opacity="0.5"
+                    filter="url(#petalGlow)"
+                  />
+                  
+                  {/* Petal outline - left curve */}
+                  <path
+                    d={`M ${centerPercent}% ${centerPercent}% Q ${sc1X}% ${sc1Y}%, ${leftMidX}% ${leftMidY}% T ${endX}% ${endY}%`}
+                    stroke={borderColor}
+                    strokeWidth="2.5"
+                    fill="none"
+                    opacity="0.7"
                     style={{
-                      filter: `drop-shadow(0 0 15px ${glowColor})`,
-                      animation: 'petalPulse 3s ease-in-out infinite',
-                      animationDelay: `${index * 0.15}s`
+                      filter: `drop-shadow(0 0 10px ${glowColor})`,
                     }}
                   />
-                  {/* Outline stroke */}
+                  
+                  {/* Petal outline - right curve */}
                   <path
-                    d={`M ${centerPercent}% ${centerPercent}% Q ${cp1X}% ${cp1Y}%, ${endX}% ${endY}%`}
+                    d={`M ${centerPercent}% ${centerPercent}% Q ${sc2X}% ${sc2Y}%, ${rightMidX}% ${rightMidY}% T ${endX}% ${endY}%`}
                     stroke={borderColor}
-                    strokeWidth="2"
+                    strokeWidth="2.5"
                     fill="none"
-                    opacity="0.6"
+                    opacity="0.7"
                     style={{
-                      filter: `drop-shadow(0 0 8px ${glowColor})`
+                      filter: `drop-shadow(0 0 10px ${glowColor})`,
                     }}
                   />
+                  
+                  {/* Center highlight stroke */}
                   <path
-                    d={`M ${centerPercent}% ${centerPercent}% Q ${cp2X}% ${cp2Y}%, ${endX}% ${endY}%`}
+                    d={`M ${centerPercent}% ${centerPercent}% L ${endX}% ${endY}%`}
                     stroke={borderColor}
-                    strokeWidth="2"
+                    strokeWidth="1.5"
                     fill="none"
-                    opacity="0.6"
+                    opacity="0.4"
+                    strokeDasharray="4,4"
                     style={{
-                      filter: `drop-shadow(0 0 8px ${glowColor})`
+                      filter: `drop-shadow(0 0 6px ${glowColor})`,
                     }}
                   />
                 </g>
